@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/06/15 03:40:52 by feralves          #+#    #+#             */
+/*   Updated: 2023/02/26 19:23:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
-
-// Functions
-
-#endif
+/**
+*@brief function erases the data in the n bytes of the memory starting at the
+*location pointed to by s
+*@param s: the string to erase
+*@param n: number of bytes to erase
+*@return none
+*/
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, '\0', n);
+}

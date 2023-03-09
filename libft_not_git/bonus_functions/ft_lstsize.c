@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/10/06 16:44:30 by feralves          #+#    #+#             */
+/*   Updated: 2023/02/26 19:42:00 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
+/**
+*@brief counts the number of nodes in a list
+*@param lst: The beginning of the list
+*@return The length of the list
+*/
+int	ft_lstsize(t_list *lst)
+{
+	int	count;
 
-// Functions
-
-#endif
+	count = 0;
+	while (lst->next != NULL)
+	{
+		count++;
+		lst = lst->next;
+	}
+	return (count);
+}

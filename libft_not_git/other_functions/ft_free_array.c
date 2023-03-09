@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/10/16 21:04:40 by feralves          #+#    #+#             */
+/*   Updated: 2023/02/20 14:42:03 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
+/**
+*@brief Frees the items and the array passed.
+*@param array The array to be freed.
+*@return none
+*/
+void	ft_free_array(char **array)
+{
+	int	index;
 
-// Functions
-
-#endif
+	index = 0;
+	while (array[index])
+	{
+		free(array[index]);
+		index++;
+	}
+	free(array);
+}

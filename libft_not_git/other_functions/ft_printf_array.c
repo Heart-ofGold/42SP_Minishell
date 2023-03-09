@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_printf_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/10/16 12:04:47 by feralves          #+#    #+#             */
+/*   Updated: 2022/12/18 17:01:06 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
+void	ft_printf_array(char **array)
+{
+	int	index;
 
-// Functions
-
-#endif
+	index = 0;
+	while (array[index])
+	{
+		ft_printf("%s\n", array[index]);
+		index++;
+	}
+}

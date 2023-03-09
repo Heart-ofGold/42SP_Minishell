@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/06/19 19:15:24 by feralves          #+#    #+#             */
+/*   Updated: 2023/02/26 19:24:11 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
-
-// Functions
-
-#endif
+/**
+*@brief outputs the character ’c’ to the given file descriptor
+*@param c: The character to output.
+*@param fd: The file descriptor on which to write.
+*@return none
+*/
+void	ft_putchar_fd(char c, int fd)
+{
+	if (!c)
+		return ;
+	write(fd, &c, 1);
+}

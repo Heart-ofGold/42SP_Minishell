@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:47:24 by feralves         ###   ########.fr       */
+/*   Created: 2022/06/03 05:08:46 by feralves          #+#    #+#             */
+/*   Updated: 2023/02/26 19:23:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include "libft_not_git/libft.h"
-
-// Functions
-
-#endif
+/**
+*@brief checks for an alphanumeric character
+*@param c Character as an integer
+*@return non-zero value if c is an alphanumeric, else it returns 0
+*/
+int	ft_isalnum(int c)
+{
+	if (ft_isdigit(c))
+		return (2);
+	else if (ft_isalpha(c))
+		return (1);
+	return (0);
+}
