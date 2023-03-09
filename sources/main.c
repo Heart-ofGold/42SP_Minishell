@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:38:02 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:40:16 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 int	main(void)
 {
 	ft_printf("Hello World!\n");
-	ft_printf("Work libft and CI, pls\n");
+	ft_printf(":)\n");
 	return (0);
 }
