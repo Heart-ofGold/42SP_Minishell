@@ -27,7 +27,7 @@ MANDATORY_FILES =	*.c
 #directories
 OBJPATH =			temps
 MANDATORY_PATH =	sources
-LIBFT_PATH =		./libft
+LIBFT_PATH =		./libft_not_git
 LIBFT =				$(LIBFT_PATH)/libft.a
 
 #header to libft.h
