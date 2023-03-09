@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/09 20:40:16 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/09 20:44:06 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(void)
 {
-	ft_printf("Hello World!\n");
-	ft_printf(":)\n");
+	printf("Hello World!\n");
+	printf(":)\n");
 	return (0);
 }
