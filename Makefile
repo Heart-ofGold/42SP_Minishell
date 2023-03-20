@@ -39,7 +39,7 @@ INCLUDE =	-I ./ -I $(LIBFT_PATH)
 
 #compiling
 CC =	gcc
-FLAGS =	-Wall -Werror -Wextra -g3
+FLAGS =	-Wall -Werror -Wextra -g3 -lreadline
 GDB =	gdb
 VAL =	valgrind --leak-check=full --track-origins=yes
 ## --trace-children=yes --track-fds=yes

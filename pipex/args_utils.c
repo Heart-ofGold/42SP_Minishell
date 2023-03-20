@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   args_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/19 22:03:30 by feralves         ###   ########.fr       */
+/*   Created: 2022/11/29 22:11:19 by feralves          #+#    #+#             */
+/*   Updated: 2023/03/19 17:30:21 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-int	testing_input(char *input)
+int	check_error_args(int argc, char *argv[], t_data *p_data)
 {
-	ft_printf("History: %s\n", input);
-	return (0);
-}
-
-int	main(int argc, char *argv[])
-{
-	char	*input;
-
-	(void)argc;
-	(void)argv;
-	while (1)
+	p_data->infile = open(argv[1], O_RDONLY);
+	if (p_data->infile == -1)
 	{
-		input = readline("pearl>$ ");
-		if (!input)
-			break ;
-		if (ft_strlen(input) > 0)
-			testing_input(input);
-		free(input);
+		error_args(argv[1], p_data, 0);
+		p_data->infile = open("/dev/null", O_RDONLY);
 	}
+	p_data->outfile = open(
+			argv[argc - 1], O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	if (p_data->outfile == -1)
+		error_args(argv[argc - 1], p_data, 1);
+	return (0);
 }
