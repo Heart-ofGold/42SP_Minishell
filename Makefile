@@ -22,7 +22,7 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 ################################################################################
 
 #scr functions
-MANDATORY_FILES =	*.c 
+MANDATORY_FILES =	*.c
 
 #directories
 OBJPATH =			temps
@@ -39,7 +39,7 @@ INCLUDE =	-I ./ -I $(LIBFT_PATH)
 
 #compiling
 CC =	gcc
-FLAGS =	-Wall -Werror -Wextra -g3 -lreadline
+FLAGS =	-Wall -Werror -Wextra -g3
 GDB =	gdb
 VAL =	valgrind --leak-check=full --track-origins=yes
 ## --trace-children=yes --track-fds=yes
@@ -76,7 +76,7 @@ $(LIBFT):
 
 ##rule name - make minishell
 $(NAME): $(LIBFT)  $(OBJ_MANDATORY)
-		@cc $(FLAGS) -o $(NAME) $(OBJ_MANDATORY) $(LIBFT)
+		@cc $(FLAGS) -lreadline -o $(NAME) $(OBJ_MANDATORY) $(LIBFT)
 		@$(LOG_SUC) "*$(NAME) succesfully compiled!"
 
 ##compile MANDATORY
