@@ -15,7 +15,7 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v3
     - name: configure environment
-      run: sudo apt install python3 gcc -y | sudo apt install libreadline
+      run: sudo apt install python3 gcc -y | sudo apt install libreadline8
     - name: make
       run: make
     - name: make recompile
