@@ -76,7 +76,7 @@ $(LIBFT):
 
 ##rule name - make minishell
 $(NAME): $(LIBFT)  $(OBJ_MANDATORY)
-		@cc $(FLAGS) -lreadline -o $(NAME) $(OBJ_MANDATORY) $(LIBFT)
+		@cc $(FLAGS) -o $(NAME) $(OBJ_MANDATORY) $(LIBFT) -lreadline
 		@$(LOG_SUC) "*$(NAME) succesfully compiled!"
 
 ##compile MANDATORY
