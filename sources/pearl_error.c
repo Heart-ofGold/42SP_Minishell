@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 17:22:11 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:54:42 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ int	check_input(char *input)
 		check = TRUE;
 	else if (check_quotes(input))
 		check = TRUE;
-
 	return (check);
 }

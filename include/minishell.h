@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 17:31:01 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:54:28 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,6 @@
 int		check_input(char *input);
 void	if_cmd_error(char *message);
 void	ft_exit(char *input);
-void	exit_error();
+void	exit_error(void);
 
 #endif
