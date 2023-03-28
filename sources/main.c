@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 19:52:15 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 20:04:29 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	mini_loop(void)
 		input = readline(PROMPT);
 		if (!input)
 			exit_error();
+		ft_exit(input);
 		if (input && *input)
 			add_history(input);
 		if (check_input(input))

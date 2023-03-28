@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 19:54:42 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 21:00:25 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,32 @@ int	check_quotes(char *argument)
 	return (0);
 }
 
+int	is_empty(char *input)
+{
+	int	index;
+	int	space;
+
+	index = 0;
+	space = 0;
+	while (input[index] != '\0')
+	{
+		if (input[index] == ' ' || input[index] == '\t')
+			space++;
+		index++;
+	}
+	if (space == index)
+		return (-1);
+	return (0);
+}
+
 int	check_input(char *input)
 {
 	int	check;
 
 	check = FALSE;
-	if (!input || ft_strlen(input) == 0 || ft_strncmp(input, " ", 1) == 0)
+	if (!input || ft_strlen(input) == 0)
+		check = TRUE;
+	else if (is_empty(input))
 		check = TRUE;
 	else if (check_quotes(input))
 		check = TRUE;
