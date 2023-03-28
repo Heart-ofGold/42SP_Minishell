@@ -22,7 +22,9 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 ################################################################################
 
 #scr functions
-MANDATORY_FILES =	*.c
+MANDATORY_FILES =	main.c \
+					exit.c \
+					pearl_error.c \
 
 #directories
 OBJPATH =			temps

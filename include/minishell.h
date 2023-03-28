@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/19 21:59:19 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/27 22:22:43 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@
 # include "libft/libft.h"
 # include "pipex.h"
 	
+// Define
+
+# define PROMPT "pearl>$ "
+# define EXIT_FAILURE 1
+# define EXIT_SUCCESS 0
+# define TRUE 1
+# define FALSE 0
+
 // Functions
+
+int		check_input(char *input);
+void	if_cmd_error(char *message, int n);
+void	ft_exit(char *input);
 
 #endif
