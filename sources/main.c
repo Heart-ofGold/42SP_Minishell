@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/27 22:08:17 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:52:15 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ void	mini_loop(void)
 	while (1)
 	{
 		input = readline(PROMPT);
+		if (!input)
+			exit_error();
+		if (input && *input)
+			add_history(input);
 		if (check_input(input))
 			continue ;
-		if (!input)
-			break ;
-		if (ft_strlen(input) > 0)
-			testing_input(input);
+		testing_input(input);
 		free(input);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:19:58 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/19 17:29:56 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:21:00 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,11 @@ static char	*get_path(char *envp[], char *cmd)
 	return (right_path);
 }
 
-void	check_cmd(int argc, char *argv[], char *envp[], t_data *p_data)
+void	check_cmd(char *input_tratado, char *envp[])
 {
 	int		index;
-	int		args;
 
-	args = 2;
 	index = 0;
-	p_data->n_cmd = argc - 3;
-	ft_malloc_p_data(p_data);
 	while (index < p_data->n_cmd)
 	{
 		p_data->check[index] = 0;
