@@ -12,6 +12,11 @@
 
 #include "../include/minishell.h"
 
+/**
+*@brief Checks the string for quotes
+*@param argument the string to be checked
+*@return -1 if not closed, 0 if closed.
+*/
 int	check_quotes(char *argument)
 {
 	int		index;
@@ -37,6 +42,11 @@ int	check_quotes(char *argument)
 	return (0);
 }
 
+/**
+*@brief Checks input is empty
+*@param input the input sent after the prompt
+*@return -1 if only spaces, 0 if others.
+*/
 int	is_empty(char *input)
 {
 	int	index;
@@ -55,6 +65,11 @@ int	is_empty(char *input)
 	return (0);
 }
 
+/**
+*@brief Checks input (for errors)
+*@param input the input sent after the prompt
+*@return False if no errors, True if errors.
+*/
 int	check_input(char *input)
 {
 	int	check;

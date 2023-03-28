@@ -12,12 +12,22 @@
 
 #include "../include/minishell.h"
 
+/**
+*@brief Testes if input is working.
+*@param input the input sent after the prompt
+*@return none.
+*/
 int	testing_input(char *input)
 {
 	ft_printf("You wrote: %s\n", input);
 	return (0);
 }
 
+/**
+*@brief Loop for the minishell to start.
+*@param none
+*@return none.
+*/
 void	mini_loop(void)
 {
 	char	*input;
@@ -37,6 +47,12 @@ void	mini_loop(void)
 	}
 }
 
+/**
+*@brief Checks if Minishell was started with args.
+*@param argc
+*@param argv
+*@return none.
+*/
 int	main(int argc, char *argv[])
 {
 	if (argv && argc > 1)

@@ -12,6 +12,11 @@
 
 #include "../include/minishell.h"
 
+/**
+*@brief Checks if Minishell wants to exit.
+*@param input the input sent after the prompt
+*@return none.
+*/
 void	ft_exit(char *input)
 {
 	if (ft_strncmp(input, "exit", 4) == 0)
@@ -21,6 +26,11 @@ void	ft_exit(char *input)
 	}
 }
 
+/**
+*@brief Function for exiting with failure.
+*@param none
+*@return none.
+*/
 void	exit_error(void)
 {
 	exit(EXIT_FAILURE);
