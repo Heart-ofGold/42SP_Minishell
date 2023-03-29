@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 20:04:29 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/28 22:26:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ int	main(int argc, char *argv[])
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
+	handle_signal();
 	mini_loop();
 }

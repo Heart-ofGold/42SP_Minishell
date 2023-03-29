@@ -25,6 +25,7 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 MANDATORY_FILES =	main.c \
 					exit.c \
 					pearl_error.c \
+					signal_utils.c \
 
 #directories
 OBJPATH =			temps
