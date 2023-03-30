@@ -82,6 +82,7 @@ OTHER_FILES =	ft_hex_itoa.c \
 			ft_free_array.c \
 			ft_free_int.c \
 			ft_atoi_mod.c \
+			ft_isdigit_mod.c \
 
 #source files gnl
 GNL_FILES =	get_next_line.c \

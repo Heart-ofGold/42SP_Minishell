@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 22:26:31 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:44:05 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 *@param input the input sent after the prompt
 *@return none.
 */
-int	testing_input(char *input)
+int	testing_input(char *input, char *envp[])
 {
+	executor(input, envp);
 	ft_printf("You wrote: %s\n", input);
 	return (0);
 }
@@ -28,7 +29,7 @@ int	testing_input(char *input)
 *@param none
 *@return none.
 */
-void	mini_loop(void)
+void	mini_loop(char *envp[])
 {
 	char	*input;
 
@@ -37,12 +38,11 @@ void	mini_loop(void)
 		input = readline(PROMPT);
 		if (!input)
 			exit_error();
-		ft_exit(input);
 		if (input && *input)
 			add_history(input);
 		if (check_input(input))
 			continue ;
-		testing_input(input);
+		testing_input(input, envp);
 		free(input);
 	}
 }
@@ -53,7 +53,7 @@ void	mini_loop(void)
 *@param argv
 *@return none.
 */
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[], char *envp[])
 {
 	if (argv && argc > 1)
 	{
@@ -61,5 +61,5 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	handle_signal();
-	mini_loop();
+	mini_loop(envp);
 }

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 22:06:54 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:06:35 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,21 @@
 
 // Functions
 
+char	*get_path(char *envp[], char *cmd);
+void	executor(char *input, char **envp);
 int		check_input(char *input);
 void	handle_signal(void);
 void	if_cmd_error(char *message);
-void	ft_exit(char *input);
 void	exit_error(void);
+
+// Builtin functions
+
+void	ft_env(char *input);
+void	ft_echo(char *input);
+void	ft_cd(char *input);
+void	ft_pwd(char *input);
+void	ft_export(char *input);
+void	ft_unset(char *input);
+void	ft_exit(char *input);
 
 #endif
