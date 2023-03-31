@@ -22,18 +22,18 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 ################################################################################
 
 #scr functions
-MANDATORY_FILES =	main.c \
-					signal_utils.c \
-					pearl_error.c \
-					cmd_path.c \
-					executor.c \
-					ft_echo.c \
-					ft_cd.c \
-					ft_pwd.c \
-					ft_export.c \
-					ft_unset.c \
-					ft_env.c \
-					ft_exit.c \
+MANDATORY_FILES =	pearl/main.c \
+					pearl/signal_utils.c \
+					errors/pearl_error.c \
+					cmd/cmd_path.c \
+					cmd/executor.c \
+					builtin/ft_echo.c \
+					builtin/ft_cd.c \
+					builtin/ft_pwd.c \
+					builtin/ft_export.c \
+					builtin/ft_unset.c \
+					builtin/ft_env.c \
+					builtin/ft_exit.c \
 
 #directories
 OBJPATH =			temps
@@ -88,17 +88,18 @@ $(LIBFT):
 ##rule name - make minishell
 $(NAME): $(LIBFT)  $(OBJ_MANDATORY)
 		@cc $(FLAGS) -o $(NAME) $(OBJ_MANDATORY) $(LIBFT) -lreadline
-		@$(LOG_SUC) "*$(NAME) succesfully compiled!"
+		@$(LOG_SUC) "$(NAME) succesfully compiled!"
 
 ##compile MANDATORY
 $(OBJPATH)/%.o: $(MANDATORY_PATH)/%.c $(HEADER)
+		@mkdir -p $(dir $@)
 		@cc $(FLAGS) -c $< -o $@ $(INCLUDE)
 		@echo -n "$(YELLOW)Compiling ${NAME} $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_FILES)))%\r"
 		$(eval PROGRESS=$(shell echo $$(($(PROGRESS)+1))))
 
 #make mem -> mcheck
 mem:
-		$(VAL) ./$(NAME) 42 -598 1 -987 411 5 -42
+		$(VAL) ./$(NAME)
 
 
 #make clean -> remove objects

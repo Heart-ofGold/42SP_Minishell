@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   starting_pipex.c                                   :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/23 11:37:24 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/28 22:09:48 by feralves         ###   ########.fr       */
+/*   Created: 2023/03/30 21:51:23 by feralves          #+#    #+#             */
+/*   Updated: 2023/03/30 21:51:34 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	ft_free_all(t_data *p_data)
 	free (p_data);
 }
 
-int	pipex(int argc, char *argv[], char *envp[])
-{
-	t_data	*p_data;
+// int	main(int argc, char *argv[], char *envp[])
+// {
+// 	t_data	*p_data;
 
-	p_data = (t_data *)ft_calloc(1, sizeof(t_data));
-	if (p_data == NULL)
-		if_error("Calloc error", p_data, 1);
-	if (check_error_args(argc, argv, p_data))
-		return (1);
-	check_cmd(argc, argv, envp, p_data);
-	pipex_start(p_data, envp);
-}
+// 	p_data = (t_data *)ft_calloc(1, sizeof(t_data));
+// 	if (p_data == NULL)
+// 		if_error("Calloc error", p_data, 1);
+// 	if (check_error_args(argc, argv, p_data))
+// 		return (1);
+// 	check_cmd(argc, argv, envp, p_data);
+// 	pipex_start(p_data, envp);
+// }

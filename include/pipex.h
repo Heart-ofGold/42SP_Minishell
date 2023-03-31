@@ -6,12 +6,13 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 18:14:54 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/19 17:28:48 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:49:33 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
+
 
 //Libraries
 # include <sys/types.h>
@@ -33,6 +34,7 @@ typedef struct s_data
 	int		n_cmd;
 	int		infile;
 	int		outfile;
+	int		here_doc;
 	int		*check;
 	int		**pipes;
 	char	**path;
@@ -55,6 +57,9 @@ int		check_error_args(int argc, char *argv[], t_data *p_data);
 void	pipex_start(t_data *p_data, char *envp[]);
 char	**ft_split_pipex(char *argument);
 void	ft_malloc_p_data(t_data *p_data);
-int		pipex(int argc, char *argv[], char *envp[]);
+void	first_process(t_data *p_data, int n, char *envp[]);
+void	middle_process(t_data *p_data, int n, char *envp[]);
+void	last_process(t_data *p_data, int n, char *envp[]);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 22:11:19 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/19 17:30:21 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/30 21:49:50 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 int	check_error_args(int argc, char *argv[], t_data *p_data)
 {
-	p_data->infile = open(argv[1], O_RDONLY);
+	if (argc < 5)
+		error_args("Invalid number of arguments\n\
+Needed: input_file cmd1 cmd2 cmd[n] output_file", p_data, 1);
+	else
+		p_data->infile = open(argv[1], O_RDONLY);
 	if (p_data->infile == -1)
 	{
 		error_args(argv[1], p_data, 0);
