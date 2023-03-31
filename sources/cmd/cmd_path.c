@@ -6,11 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:41:23 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/30 19:45:26 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:34:17 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 static char	*find_command(char **possible_paths, char *cmd)
 {

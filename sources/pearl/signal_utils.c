@@ -6,11 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:41:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/30 19:44:11 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 16:34:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /**
 *@brief Changes the signal behavior, in this case, it changes the signal so that
@@ -28,7 +28,7 @@ static void	sigint_handler(int sig)
 }
 
 /**
-*@brief Handles the main signals for the minishell (first one tells that the 
+*@brief Handles the main signals for the minishell (first one tells that the
 *signal is ignored, the second one changes the signal behavior)
 *@signal SIGINT - close the program (ctrl + c)
 *@signal SIGQUIT - quit the program/SIG_IGN - tells thesignal is to be ignored

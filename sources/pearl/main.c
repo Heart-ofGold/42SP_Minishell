@@ -6,11 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/30 19:44:05 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:42:33 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
 /**
 *@brief Testes if input is working.
@@ -20,7 +20,6 @@
 int	testing_input(char *input, char *envp[])
 {
 	executor(input, envp);
-	ft_printf("You wrote: %s\n", input);
 	return (0);
 }
 

@@ -6,66 +6,84 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/30 21:56:08 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 19:42:48 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-// void	execute_execute(char *input, char **envp, char *path)
-// {
-// 	int		check;
+void	exeggcute(char **cmd, char *path, char **envp)
+{
+	int		check;
 
-// 	check = execve(path, &input, envp);
-// 	ft_printf("Error: execve failed\n");
-// 	ft_printf("Status: %d\n", check);
-// }
+	check = execve(path, cmd, envp);
+	ft_printf("Error: execve failed\n");
+	exit(check);
+}
 
-void	executor_path(char *input, char **envp)
+char	**mini_function(char	*input)
+{
+	char	**cmd;
+
+	cmd = (char **)malloc(2 * sizeof(char *));
+	if (!input)
+		return (NULL);
+	cmd[0] = ft_strdup(input);
+	cmd[1] = NULL;
+	return (cmd);
+}
+
+void	executor_path(char *input, char *envp[])
 {
 	char	*path;
-	int		check;
+	pid_t	pid;
+	int		status;
+	char	**cmd;
 
 	path = get_path(envp, input);
 	if (!path)
 		ft_printf("%s: command not found\n", input);
 	else
 	{
-		check = execve(path, &input, envp);
-		ft_printf("Error: execve failed\n");
-		(void)check;
+		cmd = mini_function(input);
+		pid = fork();
+		if (pid == -1)
+			ft_printf("Error: fork failed\n");
+		else if (pid == 0)
+			exeggcute(cmd, path, envp);
+		else
+			wait(&status);
+		free(cmd[1]);
+		free(cmd[0]);
+		free(path);
+		free(cmd);
 	}
 }
-// {
-// 	char	*path;
-// 	// pid_t	pid;
-// 	// int		status;
-// 	// int		i;
-// 	path = get_path(envp, input);
-// 	if (!path)
-// 		ft_printf("%s: command not found\n", input);
-// 	else
-// 	{
-// 		execute_execute(input, envp, path);
-// 		// pid = fork();
-// 		// if (pid == 0)
-// 		// else if (pid == -1)
-// 		// 	ft_printf("Error: fork failed\n");
-// 		// else
-// 		// 	wait(&status);
-// 		// if (WIFEXITED(status))
-// 		// 	i = WEXITSTATUS(status);
-// 		// ft_printf("Status: %d\n", i);
-// 		// exit (i);
-// 	}
-// }
+/**
+{
+	char	*path;
+	int		check;
+	char	**cmd;
+
+	path = get_path(envp, input);
+	if (!path)
+		ft_printf("%s: command not found\n", input);
+	else
+	{
+		cmd = mini_function(input);
+		check = execve(path, cmd, envp);
+		ft_printf("Error: execve failed\n");
+		exit(check);
+	}
+}
+*/
 
 /**
  * @brief Function that executes the command sent by the user.
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(char *input, char **envp)
+void	executor(char *input, char *envp[])
 {
 	if (!ft_strncmp(input, "echo", 4))
 		ft_echo(input);
