@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 19:42:48 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:36:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,14 @@ char	**mini_function(char	*input)
 	return (cmd);
 }
 
+void	free_mini_function(char **cmd, char *path)
+{
+	free(cmd[1]);
+	free(cmd[0]);
+	free(path);
+	free(cmd);
+}
+
 void	executor_path(char *input, char *envp[])
 {
 	char	*path;
@@ -47,16 +55,17 @@ void	executor_path(char *input, char *envp[])
 	{
 		cmd = mini_function(input);
 		pid = fork();
+		handle_signal_child();
 		if (pid == -1)
 			ft_printf("Error: fork failed\n");
 		else if (pid == 0)
+		{
+			handle_signal();
 			exeggcute(cmd, path, envp);
+		}
 		else
 			wait(&status);
-		free(cmd[1]);
-		free(cmd[0]);
-		free(path);
-		free(cmd);
+		free_mini_function(cmd, path);
 	}
 }
 /**

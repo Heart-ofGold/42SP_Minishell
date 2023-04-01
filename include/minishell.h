@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 16:49:41 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 21:52:40 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*get_path(char *envp[], char *cmd);
 void	executor(char *input, char *envp[]);
 int		check_input(char *input);
 void	handle_signal(void);
+void	handle_signal_child(void);
 void	if_cmd_error(char *message);
 void	exit_error(void);
 

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 19:42:33 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:25:34 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	mini_loop(char *envp[])
 
 	while (1)
 	{
+		handle_signal();
 		input = readline(PROMPT);
 		if (!input)
 			exit_error();
@@ -59,6 +60,6 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	handle_signal();
 	mini_loop(envp);
+	rl_clear_history();
 }

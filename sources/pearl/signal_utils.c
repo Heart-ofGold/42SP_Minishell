@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:41:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 16:34:31 by feralves         ###   ########.fr       */
+/*   Updated: 2023/03/31 22:37:47 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,31 @@ static void	sigint_handler(int sig)
 	rl_redisplay();
 }
 
+static void	sigint_handler_child(int sig)
+{
+	(void)sig;
+	ft_putstr_fd("\n", STDOUT_FILENO);
+	rl_replace_line("", 0);
+}
+
 /**
 *@brief Handles the main signals for the minishell (first one tells that the
 *signal is ignored, the second one changes the signal behavior)
-*@signal SIGINT - close the program (ctrl + c)
-*@signal SIGQUIT - quit the program/SIG_IGN - tells thesignal is to be ignored
+*@signal SIGINT (ctrl + c) - close the program 
+*@signal SIGQUIT (crtl + \) - quit the program/SIG_IGN - tells thesignal is to 
+*be ignored
 *@param none
 *@return none.
 */
 void	handle_signal(void)
 {
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	handle_signal_child(void)
+{
+	signal(SIGINT, sigint_handler_child);
 	signal(SIGQUIT, SIG_IGN);
 }
 
