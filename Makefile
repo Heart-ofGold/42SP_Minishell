@@ -34,6 +34,9 @@ MANDATORY_FILES =	pearl/main.c \
 					builtin/ft_unset.c \
 					builtin/ft_env.c \
 					builtin/ft_exit.c \
+					lexer/lexer.c \
+					lexer/token.c \
+					lexer/utils_lexer.c
 
 #directories
 OBJPATH =			temps
