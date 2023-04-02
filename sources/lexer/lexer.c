@@ -6,12 +6,19 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 16:03:59 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:53:37 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+
+/**
+*@brief adds a new token to a linked list of tokens.
+*@param tokens is a pointer to a t_token pointer. It is used to keep track of the linked list of tokens.
+*@param token is a pointer to a t_token representing a new token to be added to the linked list.
+*@return none.
+*/
 void	append_token(t_token **tokens, t_token *token)
 {
 	if (*tokens == NULL)
@@ -27,6 +34,11 @@ void	append_token(t_token **tokens, t_token *token)
 	}
 }
 
+/**
+*@brief gets a pointer to an "input" character pointer. 
+*@param input
+*@return It returns a new character pointer containing the substring from the beginning of the "input" string to the first separator or white space character.
+*/
 char	*get_value(char **input)
 {
 	char	*value;
@@ -43,6 +55,11 @@ char	*get_value(char **input)
 	return (value);
 }
 
+/**
+*@brief This function is responsible for parsing an input string and creating a linked list of tokens, where each token is represented by a t_token object.
+*@param input
+*@return returns a pointer to an object of type t_token
+*/
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;

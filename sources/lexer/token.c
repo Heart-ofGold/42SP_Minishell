@@ -6,12 +6,18 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 15:57:38 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:12:24 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
+/**
+*@brief creates a token of type REDIRECT with value equal to c and initial and final position equal to pos
+*@param c one character
+*@param pos a position
+*@return a token of type REDIRECT
+*/
 t_token *create_redirect_token(char c, int pos)
 {
     t_token *token = malloc(sizeof(t_token));
@@ -24,6 +30,11 @@ t_token *create_redirect_token(char c, int pos)
     return token;
 }
 
+/**
+*@brief creates a token of type PIPE with value equal to "|" and initial and final position equal to pos
+*@param pos
+*@return a token of type PIPE
+*/
 t_token *create_pipe_token(int pos)
 {
     t_token *token = malloc(sizeof(t_token));
@@ -36,6 +47,13 @@ t_token *create_pipe_token(int pos)
     return token;
 }
 
+/**
+*@brief takes the input string and two positions: start_pos and end_pos. Creates a WORD type token with a value equal to the subset of the input string starting at start_pos and ending at end_pos
+*@param input
+*@param start_pos
+*@param end_pos
+*@return a token with type WORD, value equal to the sub-char of the input between the positions of start_pos and end_pos,
+*/
 t_token *create_word_token(char *input, int start_pos, int end_pos)
 {
     t_token *token = malloc(sizeof(t_token));
@@ -48,6 +66,12 @@ t_token *create_word_token(char *input, int start_pos, int end_pos)
     return token;
 }
 
+/**
+*@brief cover the input string from position pos until it finds a separator (whitespace, redirection or pipe), and creates and returns the respective token with the function corresponding to the separation rules
+*@param input
+*@param pos
+*@return the next token found in the string
+*/
 t_token *get_next_token(char *input, int *pos)
 {
     int start_pos = *pos;
@@ -80,14 +104,17 @@ t_token *get_next_token(char *input, int *pos)
         }
     }
     if (input[*pos] == '\0')
-    {
         end_pos = *pos - 1;
-    }
     token = create_word_token(input, start_pos, end_pos);
-
     return token;
 }
 
+/**
+*@brief a new token with the type and value specified in the parameters
+*@param value
+*@param type
+*@return takes a value and a type and creates a new token with those values, setting the start and end positions to 0 and the next token to NULL
+*/
 t_token	*new_token(char *value, int type)
 {
 	t_token *token;
