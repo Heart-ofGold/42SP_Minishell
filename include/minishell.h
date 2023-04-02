@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 15:56:47 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:21:47 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,45 +43,57 @@
  */
 typedef struct s_token
 {
-    int type;           // the token type, e.g. WORD, PIPE, REDIRECT
-    char *value;        // the value of the token, eg "ls", ">", "file.txt"
-    int start_pos;      // the starting position of the token in the input
-    int end_pos;        // the final position of the token in the input
-    struct s_token *next;  // pointer to the next token in the linked list
-} t_token;
+	int				type;	// the token type, e.g. WORD, PIPE, REDIRECT
+	int				n_cmds;	// number of commands
+	char			*value;	// the value of the token, eg "ls", ">", "file.txt"
+	int				start_pos;// the starting position of the token in the input
+	int				end_pos;// the final position of the token in the input
+	struct s_token	*next;	// pointer to the next token in the linked list
+}	t_token;
 
-
-enum token_type
+typedef struct s_parser
 {
-    WORD = 0,   // uma palavra
-    PIPE = 1,   // um pipe "|"
-    REDIRECT = 2, // um redirecionador "<" ou ">"
-    SEPARATOR = 3 // 
+	char	***cmd;
+}	t_parser;
+
+enum e_token_type
+{
+	WORD = 0,		// uma palavra
+	PIPE = 1,		// um pipe "|"
+	REDIRECT = 2,	// um redirecionador "<" ou ">"
+	SEPARATOR = 3	// um separador ";"
 };
 
 // Functions
 
-t_token *lexer(char *input);
-t_token *create_redirect_token(char c, int pos);
-t_token *create_pipe_token(int pos);
-t_token *create_word_token(char *input, int start_pos, int end_pos);
-t_token *get_next_token(char *input, int *pos);
-t_token *new_token(char *value, int type);
-void	append_token(t_token **tokens, t_token *token);
-char	*get_path(char *envp[], char *cmd);
-void	executor(char *input, char *envp[]);
-int		check_input(char *input);
+// Signal
+
 void	handle_signal(void);
 void	handle_signal_child(void);
-void	if_cmd_error(char *message);
-void	exit_error(void);
-int     is_redirect(char c);
-int     is_quote(char c);
-int     is_whitespace(char c);
-void	print_tokens(t_token *tokens);
-char	*get_value(char **input);
-int     is_separator(char c);
 
+// Lexer
+
+t_token	*lexer(char *input);
+t_token	*create_redirect_token(char c, int pos);
+t_token	*create_pipe_token(int pos);
+t_token	*create_word_token(char *input, int start_pos, int end_pos);
+t_token	*get_next_token(char *input, int *pos);
+t_token	*new_token(char *value, int type);
+void	append_token(t_token **tokens, t_token *token);
+
+// Parser
+
+void	parsing(t_token *token);
+
+// Utils
+
+char	*get_value(char **input);
+int		check_input(char *input);
+int		is_redirect(char c);
+int		is_quote(char c);
+int		is_whitespace(char c);
+int		is_pipe(char c);
+int		is_separator(char c);
 
 // Builtin functions
 
@@ -93,6 +105,18 @@ void	ft_export(char *input);
 void	ft_unset(char *input);
 void	ft_exit(char *input);
 
+// Executor
 
+char	*get_path(char *envp[], char *cmd);
+void	executor(char *input, char *envp[]);
+
+// Errors
+
+void	if_cmd_error(char *message);
+void	exit_error(void);
+
+// Testing functions
+
+void	print_tokens(t_token *tokens);
 
 #endif

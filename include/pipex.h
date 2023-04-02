@@ -6,15 +6,15 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 18:14:54 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/30 21:49:33 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:55:11 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
-
 //Libraries
+
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
@@ -27,6 +27,7 @@
 # include "libft/libft.h"
 
 //Structs
+
 typedef struct s_data
 {
 	int		index;
@@ -42,11 +43,13 @@ typedef struct s_data
 }				t_data;
 
 //Define
+
 # define TEMP_SPACE 1
 # define STDIN 0
 # define STDOUT 1
 
 //Functions
+
 void	if_error(char *message, t_data *p_data, int n);
 void	error_args(char *file, t_data *p_data, int n);
 void	if_error_silent(t_data *p_data, int n);
@@ -60,6 +63,5 @@ void	ft_malloc_p_data(t_data *p_data);
 void	first_process(t_data *p_data, int n, char *envp[]);
 void	middle_process(t_data *p_data, int n, char *envp[]);
 void	last_process(t_data *p_data, int n, char *envp[]);
-
 
 #endif

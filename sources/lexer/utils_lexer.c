@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:20:11 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 15:05:21 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:38:16 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 int	is_redirect(char c)
 {
-	if (c == '<' || c == '>' || c == '|')
+	if (c == '<' || c == '>')
+		return (1);
+	return (0);
+}
+
+int	is_pipe(char c)
+{
+	if (c == '|')
 		return (1);
 	return (0);
 }
@@ -35,7 +42,7 @@ int	is_whitespace(char c)
 
 int	is_separator(char c)
 {
-	if (c == '|' || c == ';')
+	if (c == ';')
 		return (1);
 	return (0);
 }

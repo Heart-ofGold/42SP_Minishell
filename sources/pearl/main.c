@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 15:06:20 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:45:58 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	testing_input(char *input, char *envp[])
 
 	tokens = lexer(input);
 	print_tokens(tokens);
+	ft_printf("comandos: %d\n", tokens->n_cmds);
+	// parsing(tokens);
 	free(tokens);
 	executor(input, envp);
 	return (0);
@@ -43,7 +45,7 @@ void	mini_loop(char *envp[])
 		input = readline(PROMPT);
 		if (!input)
 			exit_error();
-		if (input && *input)
+		if (input)
 			add_history(input);
 		if (check_input(input))
 			continue ;

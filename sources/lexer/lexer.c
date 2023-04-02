@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 15:08:43 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 17:48:46 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	append_token(t_token **tokens, t_token *token)
 {
 	t_token	*current;
 
-	if (*tokens == NULL)
-	{
+	if ((*tokens)->value == NULL)
 		*tokens = token;
-	}
 	else
 	{
 		current = *tokens;
@@ -50,7 +48,10 @@ char	*get_value(char **input)
 
 	len = 0;
 	while ((*input)[len] && !is_separator((*input)[len]) &&
-		!is_whitespace((*input)[len]))
+		!is_whitespace((*input)[len]) && !is_pipe((*input)[len]) &&
+		!is_redirect((*input)[len]))
+		len++;
+	if (is_whitespace((*input)[len]))
 		len++;
 	value = malloc(sizeof(char) * (len + 1));
 	if (!value)
@@ -58,6 +59,16 @@ char	*get_value(char **input)
 	ft_strlcpy(value, *input, len + 1);
 	*input += len;
 	return (value);
+}
+
+void	start_tokens(t_token **tokens)
+{
+	*tokens = malloc(sizeof(t_token));
+	(*tokens)->value = NULL;
+	(*tokens)->start_pos = 0;
+	(*tokens)->end_pos = 0;
+	(*tokens)->n_cmds = 0;
+	(*tokens)->next = NULL;
 }
 
 /**
@@ -72,33 +83,40 @@ t_token	*lexer(char *input)
 	t_token	*token;
 	char	*value;
 
-	tokens = NULL;
+	start_tokens(&tokens);
 	while (*input)
 	{
 		if (is_whitespace(*input))
 			input++;
-		else if (*input == '|' || *input == ';')
+		else if (is_separator(*input))
 		{
 			token = new_token(input, SEPARATOR);
 			input++;
+			tokens->n_cmds++;
+			append_token(&tokens, token);
+		}
+		else if (is_redirect(*input))
+		{
+			token = new_token(input, REDIRECT);
+			input++;
+			tokens->n_cmds++;
+			append_token(&tokens, token);
+		}
+		else if (is_pipe(*input))
+		{
+			token = new_token(input, PIPE);
+			input++;
+			tokens->n_cmds++;
 			append_token(&tokens, token);
 		}
 		else
 		{
 			value = get_value(&input);
 			token = new_token(value, WORD);
+			tokens->n_cmds++;
 			append_token(&tokens, token);
 			free(value);
 		}
 	}
 	return (tokens);
-}
-
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		ft_printf("[%d] %s\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
 }
