@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 07:00:50 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:57:38 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_token *get_next_token(char *input, int *pos)
             end_pos = *pos - 1;
             break;
         }
-        else if (is_redirection(input[*pos]))
+        else if (is_redirect(input[*pos]))
         {
             token = create_redirect_token(input[*pos], *pos);
             *pos = *pos + 1;
