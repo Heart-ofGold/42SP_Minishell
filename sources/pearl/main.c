@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 16:01:29 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/02 15:06:20 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@
 */
 int	testing_input(char *input, char *envp[])
 {
-	t_token *tokens = lexer(input);
-    print_tokens(tokens);
+	t_token	*tokens;
+
+	tokens = lexer(input);
+	print_tokens(tokens);
 	free(tokens);
 	executor(input, envp);
 	return (0);
@@ -63,10 +65,6 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	char *input = "ls | grep .txt; echo 'hello world'";
-	t_token *tokens = lexer(input);
-	print_tokens(tokens);
-	
 	mini_loop(envp);
 	rl_clear_history();
 }
