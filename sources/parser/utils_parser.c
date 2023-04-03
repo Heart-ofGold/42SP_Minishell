@@ -6,31 +6,36 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:21:49 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 16:28:12 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:33:42 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	one_cmd(t_parser *parser, t_token *token)
+t_parser	*one_cmd(t_token *token)
 {
-	int	index;
+	t_parser	*parser;
 
-	index = 0;
-	parser->cmd[index][0] = token->value;
-	ft_printf("cmd %d: %s\n", index, parser->cmd[index][0]);
+	parser = (t_parser *)malloc(sizeof(t_parser));
+	if (!parser)
+		return (NULL);
+	parser->cmd = (char ***)malloc(sizeof(char **));
+	if (!parser->cmd)
+		return (NULL);
+	parser->cmd[0] = (char **)malloc(sizeof(char *));
+	if (!parser->cmd[0])
+		return (NULL);
+	parser->n_cmds = 0;
+	parser->cmd[0][0] = token->value;
+	return (parser);
 }
 
-void	last_cmd(t_parser *parser, t_token *token, int index)
+void	last_node(t_parser *parser, t_token *token, int index, int j)
 {
-	int	cmd_index;
-
-	cmd_index = 0;
 	while (token)
 	{
-		parser->cmd[index][cmd_index] = token->value;
+		parser->cmd[index][j] = token->value;
 		token = token->next;
-		cmd_index++;
 	}
 	index++;
 	parser->cmd[index][0] = NULL;

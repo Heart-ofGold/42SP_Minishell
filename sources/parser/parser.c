@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 16:27:59 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:44:30 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_parser	*start_parser(t_token *token)
 	return (parser);
 }
 
-void	parsing(t_token *token)
+t_parser	*parsing(t_token *token)
 {
 	t_parser	*parser;
 	int			index;
@@ -56,10 +56,7 @@ void	parsing(t_token *token)
 	index = 0;
 	parser = start_parser(token);
 	if (!token->next)
-	{
-		one_cmd(parser, token);
-		return ;
-	}
+		return (one_cmd(token));
 	while (token->next)
 	{
 		if (token->type == WORD)
@@ -75,9 +72,6 @@ void	parsing(t_token *token)
 		}
 		token = token->next;
 	}
-	last_cmd(parser, token, parser->i);
-	test_parser(parser);
+	last_node(parser, token, parser->i, index);
+	return (parser);
 }
-	//	ft_printf("\tteste\n");
-		// ft_printf("token->type: %d\n", token->type);
-		// ft_printf("token->value: %s\n", token->value);

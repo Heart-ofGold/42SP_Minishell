@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 16:23:03 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:38:29 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,9 @@ void	append_token(t_token **tokens, t_token *token);
 
 // Parser
 
-void	parsing(t_token *token);
-void	one_cmd(t_parser *parser, t_token *token);
-void	last_cmd(t_parser *parser, t_token *token, int index);
+t_parser	*parsing(t_token *token);
+t_parser	*one_cmd(t_token *token);
+void		last_node(t_parser *parser, t_token *token, int index, int j);
 
 // Utils
 
@@ -111,7 +111,7 @@ void	ft_exit(char *input);
 // Executor
 
 char	*get_path(char *envp[], char *cmd);
-void	executor(char *input, char *envp[]);
+void	executor(t_parser *parser, char *envp[]);
 
 // Errors
 

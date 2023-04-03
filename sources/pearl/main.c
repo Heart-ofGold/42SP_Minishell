@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 14:56:19 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:36:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,18 @@
 */
 int	testing_input(char *input, char *envp[])
 {
-	t_token	*tokens;
+	t_token		*tokens;
+	t_parser	*parser;
 
 	tokens = lexer(input);
-	print_tokens(tokens);
-	parsing(tokens);
+	parser = parsing(tokens);
 	free(tokens);
-	executor(input, envp);
+	if (parser->n_cmds == 0)
+		executor(parser, envp);
 	return (0);
 }
-//	ft_printf("comandos: %d\n", tokens->n_cmds);
-//	ft_printf("tokens: %d\n", tokens->n_tokens);
+//	test_parser(parser);
+//	print_tokens(tokens);
 
 /**
 *@brief Loop for the minishell to start.
