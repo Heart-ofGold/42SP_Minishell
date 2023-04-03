@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 17:21:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:27:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@
 # define EXIT_SUCCESS 0
 # define TRUE 1
 # define FALSE 0
+# define WORD 0 // uma palavra
+# define PIPE 1 // um pipe "|"
+# define REDIRECT 2 // um redirecionador "<" ou ">"
+# define SEPARATOR 3 // um separador ";"
+# define QUOTE 4 // uma aspas simples ou dupla
+# define WHITESPACE 5 // um espaço em branco
 
 // structs
 
@@ -45,6 +51,7 @@ typedef struct s_token
 {
 	int				type;	// the token type, e.g. WORD, PIPE, REDIRECT
 	int				n_cmds;	// number of commands
+	int				n_tokens; // number of tokens
 	char			*value;	// the value of the token, eg "ls", ">", "file.txt"
 	int				start_pos;// the starting position of the token in the input
 	int				end_pos;// the final position of the token in the input
@@ -55,14 +62,6 @@ typedef struct s_parser
 {
 	char	***cmd;
 }	t_parser;
-
-enum e_token_type
-{
-	WORD = 0,		// uma palavra
-	PIPE = 1,		// um pipe "|"
-	REDIRECT = 2,	// um redirecionador "<" ou ">"
-	SEPARATOR = 3	// um separador ";"
-};
 
 // Functions
 

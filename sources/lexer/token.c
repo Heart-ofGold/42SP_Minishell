@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 17:22:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:44:22 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@
 *@param pos a position
 *@return a token of type REDIRECT
 */
-t_token	*create_redirect_token(char c, int pos)
-{
-	t_token	*token;
+// t_token	*create_redirect_token(char c, int pos)
+// {
+// 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	token->type = REDIRECT;
-	token->value = malloc(2 * sizeof(char));
-	token->value[0] = c;
-	token->value[1] = '\0';
-	token->start_pos = pos;
-	token->end_pos = pos;
-	return (token);
-}
+// 	token = malloc(sizeof(t_token));
+// 	token->type = REDIRECT;
+// 	token->value = malloc(2 * sizeof(char));
+// 	token->value[0] = c;
+// 	token->value[1] = '\0';
+// 	token->start_pos = pos;
+// 	token->end_pos = pos;
+// 	return (token);
+// }
 
 /**
 *@brief creates a token of type PIPE with value equal to "|" and initial and 
@@ -39,19 +39,19 @@ t_token	*create_redirect_token(char c, int pos)
 *@param pos
 *@return a token of type PIPE
 */
-t_token	*create_pipe_token(int pos)
-{
-	t_token	*token;
+// t_token	*create_pipe_token(int pos)
+// {
+// 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	token->type = PIPE;
-	token->value = malloc(2 * sizeof(char));
-	token->value[0] = '|';
-	token->value[1] = '\0';
-	token->start_pos = pos;
-	token->end_pos = pos;
-	return (token);
-}
+// 	token = malloc(sizeof(t_token));
+// 	token->type = PIPE;
+// 	token->value = malloc(2 * sizeof(char));
+// 	token->value[0] = '|';
+// 	token->value[1] = '\0';
+// 	token->start_pos = pos;
+// 	token->end_pos = pos;
+// 	return (token);
+// }
 
 /**
 *@brief takes the input string and two positions: start_pos and end_pos. Creates
@@ -63,19 +63,19 @@ t_token	*create_pipe_token(int pos)
 *@return a token with type WORD, value equal to the sub-char of the input 
 *between the positions of start_pos and end_pos
 */
-t_token	*create_word_token(char *input, int start_pos, int end_pos)
-{
-	t_token	*token;
+// t_token	*create_word_token(char *input, int start_pos, int end_pos)
+// {
+// 	t_token	*token;
 
-	token = malloc(sizeof(t_token));
-	token->type = WORD;
-	token->value = malloc((end_pos - start_pos + 2) * sizeof(char));
-	strncpy(token->value, &input[start_pos], end_pos - start_pos + 1);
-	token->value[end_pos - start_pos + 1] = '\0';
-	token->start_pos = start_pos;
-	token->end_pos = end_pos;
-	return (token);
-}
+// 	token = malloc(sizeof(t_token));
+// 	token->type = WORD;
+// 	token->value = malloc((end_pos - start_pos + 2) * sizeof(char));
+// 	strncpy(token->value, &input[start_pos], end_pos - start_pos + 1);
+// 	token->value[end_pos - start_pos + 1] = '\0';
+// 	token->start_pos = start_pos;
+// 	token->end_pos = end_pos;
+// 	return (token);
+// }
 
 /**
 *@brief cover the input string from position pos until it finds a separator 
@@ -138,10 +138,11 @@ t_token	*new_token(char *value, int type)
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
+	token->n_cmds = 1;
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->start_pos = 0;
-	token->end_pos = 0;
+	token->end_pos = ft_strlen(value);
 	token->next = NULL;
 	return (token);
 }

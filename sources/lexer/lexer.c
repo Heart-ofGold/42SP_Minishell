@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 17:48:46 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:45:06 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,25 @@ void	start_tokens(t_token **tokens)
 	(*tokens)->value = NULL;
 	(*tokens)->start_pos = 0;
 	(*tokens)->end_pos = 0;
-	(*tokens)->n_cmds = 0;
+	(*tokens)->n_cmds = 1;
 	(*tokens)->next = NULL;
+	(*tokens)->type = 0;
+}
+
+int	is_symbol(char c)
+{
+	if (is_separator(c))
+		return (SEPARATOR);
+	else if (is_redirect(c))
+		return (REDIRECT);
+	else if (is_pipe(c))
+		return (PIPE);
+	else if (is_quote(c))
+		return (QUOTE);
+	else if (is_whitespace(c))
+		return (WHITESPACE);
+	else
+		return (WORD);
 }
 
 /**
@@ -80,41 +97,26 @@ void	start_tokens(t_token **tokens)
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
-	t_token	*token;
 	char	*value;
+	int		holder;
 
 	start_tokens(&tokens);
 	while (*input)
 	{
-		if (is_whitespace(*input))
+		holder = is_symbol(*input);
+		if (holder == WHITESPACE)
 			input++;
-		else if (is_separator(*input))
+		else if (holder == SEPARATOR || holder == REDIRECT || holder == PIPE
+			|| holder == QUOTE)
 		{
-			token = new_token(input, SEPARATOR);
+			append_token(&tokens, new_token(input, holder));
 			input++;
-			tokens->n_cmds++;
-			append_token(&tokens, token);
-		}
-		else if (is_redirect(*input))
-		{
-			token = new_token(input, REDIRECT);
-			input++;
-			tokens->n_cmds++;
-			append_token(&tokens, token);
-		}
-		else if (is_pipe(*input))
-		{
-			token = new_token(input, PIPE);
-			input++;
-			tokens->n_cmds++;
-			append_token(&tokens, token);
+			tokens->n_cmds += 1;
 		}
 		else
 		{
 			value = get_value(&input);
-			token = new_token(value, WORD);
-			tokens->n_cmds++;
-			append_token(&tokens, token);
+			append_token(&tokens, new_token(value, WORD));
 			free(value);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 17:45:21 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:47:06 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,26 @@ char	*ft_strdup_char(char c)
 	return (str);
 }
 
-void	start_parser(t_parser *parser, t_token *token)
+t_parser	*start_parser(t_token *token)
 {
-	int	i;
+	int			i;
+	t_parser	*parser;
 
 	i = 0;
-	while (i < 100)
+	parser = (t_parser *)malloc(sizeof(t_parser));
+	if (!parser)
+		return (NULL);
+	parser->cmd = (char ***)malloc(sizeof(char **) * token->n_tokens + 1);
+	if (!parser->cmd)
+		return (NULL);
+	while (i < token->n_tokens)
 	{
-		parser->cmd[i] = (char **)malloc(sizeof(char *) * token->n_cmds);
+		parser->cmd[i] = (char **)malloc(sizeof(char *) * token->n_tokens + 1);
 		if (!parser->cmd[i])
-			return ;
+			return (NULL);
 		i++;
 	}
+	return (parser);
 }
 
 void	parsing(t_token *token)
@@ -64,30 +72,25 @@ void	parsing(t_token *token)
 
 	index = 0;
 	cmd_index = 0;
-	parser = (t_parser *)malloc(sizeof(t_parser));
-	if (!parser)
-		return ;
-	start_parser(parser, token);
-	while (token)
+	parser = start_parser(token);
+	while (token->next)
 	{
 		if (token->type == WORD)
 		{
 			parser->cmd[cmd_index][index] = ft_strdup(token->value);
+			if (token->next->type != WORD)
+				cmd_index++;
 			index++;
 		}
-		else if (token->type == PIPE)
+		else if (token->type == !WORD)
 		{
 			index = 0;
 			parser->cmd[cmd_index++][index] = ft_strdup_char(token->value[0]);
-			cmd_index++;
 		}
-		else if (token->type == REDIRECT)
-		{
-			index = 0;
-			parser->cmd[cmd_index++][index] = ft_strdup_char(token->value[0]);
-			cmd_index++;
-		}
+		ft_printf("\tteste\n");
 		token = token->next;
 	}
 	parser->cmd[cmd_index] = NULL;
 }
+		// ft_printf("token->type: %d\n", token->type);
+		// ft_printf("token->value: %s\n", token->value);
