@@ -63,9 +63,9 @@ void	executor_path(t_parser *parser, char *envp[])
 		}
 		else
 			wait(&status);
-		free_mini_function(parser->cmd[0], path);
 	}
 }
+//		free_mini_function(parser->cmd[0], path);
 
 /**
  * @brief Function that executes the command sent by the user.

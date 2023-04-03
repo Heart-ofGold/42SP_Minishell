@@ -38,13 +38,15 @@ static char	*find_command(char **possible_paths, char *cmd)
 	return (NULL);
 }
 
-char	*get_path(char *envp[], char *cmd)
+char	*get_path(char *envp[], char *parser)
 {
 	int		i;
 	char	**possible_paths;
 	char	*right_path;
+	char	*cmd;
 
 	i = 0;
+	cmd = ft_strtrim_mod(parser, " ");
 	if (cmd == NULL)
 		return (NULL);
 	while (ft_strncmp(envp[i], "PATH=", 5))
