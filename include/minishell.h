@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 23:27:45 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:51:55 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ typedef struct s_token
 
 typedef struct s_parser
 {
+	int		n_cmds;
+	int		i;
 	char	***cmd;
 }	t_parser;
 

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 23:47:06 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:53:10 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_parser	*start_parser(t_token *token)
 			return (NULL);
 		i++;
 	}
+	parser->i = 0;
+	parser->n_cmds = token->n_cmds;
 	return (parser);
 }
 
@@ -68,29 +70,27 @@ void	parsing(t_token *token)
 {
 	t_parser	*parser;
 	int			index;
-	int			cmd_index;
 
 	index = 0;
-	cmd_index = 0;
 	parser = start_parser(token);
 	while (token->next)
 	{
 		if (token->type == WORD)
 		{
-			parser->cmd[cmd_index][index] = ft_strdup(token->value);
+			parser->cmd[parser->i][index] = ft_strdup(token->value);
 			if (token->next->type != WORD)
-				cmd_index++;
+				parser->i++;
 			index++;
 		}
 		else if (token->type == !WORD)
 		{
 			index = 0;
-			parser->cmd[cmd_index++][index] = ft_strdup_char(token->value[0]);
+			parser->cmd[parser->i++][index] = ft_strdup_char(token->value[0]);
 		}
 		ft_printf("\tteste\n");
 		token = token->next;
 	}
-	parser->cmd[cmd_index] = NULL;
+	parser->cmd[parser->i] = NULL;
 }
 		// ft_printf("token->type: %d\n", token->type);
 		// ft_printf("token->value: %s\n", token->value);

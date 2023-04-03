@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 23:44:22 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:54:56 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_token	*new_token(char *value, int type)
 	if (!token)
 		return (NULL);
 	token->n_cmds = 1;
+	token->n_tokens = 0;
 	token->type = type;
 	token->value = ft_strdup(value);
 	token->start_pos = 0;

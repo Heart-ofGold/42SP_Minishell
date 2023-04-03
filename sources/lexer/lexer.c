@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 23:45:06 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:54:34 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	append_token(t_token **tokens, t_token *token)
 			current = current->next;
 		current->next = token;
 	}
+	(*tokens)->n_tokens++;
 }
 
 /**
@@ -68,6 +69,7 @@ void	start_tokens(t_token **tokens)
 	(*tokens)->start_pos = 0;
 	(*tokens)->end_pos = 0;
 	(*tokens)->n_cmds = 1;
+	(*tokens)->n_tokens = 0;
 	(*tokens)->next = NULL;
 	(*tokens)->type = 0;
 }
