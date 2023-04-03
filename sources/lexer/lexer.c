@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 15:08:43 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:54:34 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void	append_token(t_token **tokens, t_token *token)
 {
 	t_token	*current;
 
-	if (*tokens == NULL)
-	{
+	if ((*tokens)->value == NULL)
 		*tokens = token;
-	}
 	else
 	{
 		current = *tokens;
@@ -35,6 +33,7 @@ void	append_token(t_token **tokens, t_token *token)
 			current = current->next;
 		current->next = token;
 	}
+	(*tokens)->n_tokens++;
 }
 
 /**
@@ -50,7 +49,10 @@ char	*get_value(char **input)
 
 	len = 0;
 	while ((*input)[len] && !is_separator((*input)[len]) &&
-		!is_whitespace((*input)[len]))
+		!is_whitespace((*input)[len]) && !is_pipe((*input)[len]) &&
+		!is_redirect((*input)[len]))
+		len++;
+	if (is_whitespace((*input)[len]))
 		len++;
 	value = malloc(sizeof(char) * (len + 1));
 	if (!value)
@@ -58,6 +60,34 @@ char	*get_value(char **input)
 	ft_strlcpy(value, *input, len + 1);
 	*input += len;
 	return (value);
+}
+
+void	start_tokens(t_token **tokens)
+{
+	*tokens = malloc(sizeof(t_token));
+	(*tokens)->value = NULL;
+	(*tokens)->start_pos = 0;
+	(*tokens)->end_pos = 0;
+	(*tokens)->n_cmds = 1;
+	(*tokens)->n_tokens = 0;
+	(*tokens)->next = NULL;
+	(*tokens)->type = 0;
+}
+
+int	is_symbol(char c)
+{
+	if (is_separator(c))
+		return (SEPARATOR);
+	else if (is_redirect(c))
+		return (REDIRECT);
+	else if (is_pipe(c))
+		return (PIPE);
+	else if (is_quote(c))
+		return (QUOTE);
+	else if (is_whitespace(c))
+		return (WHITESPACE);
+	else
+		return (WORD);
 }
 
 /**
@@ -69,36 +99,28 @@ char	*get_value(char **input)
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
-	t_token	*token;
 	char	*value;
+	int		holder;
 
-	tokens = NULL;
+	start_tokens(&tokens);
 	while (*input)
 	{
-		if (is_whitespace(*input))
+		holder = is_symbol(*input);
+		if (holder == WHITESPACE)
 			input++;
-		else if (*input == '|' || *input == ';')
+		else if (holder == SEPARATOR || holder == REDIRECT || holder == PIPE
+			|| holder == QUOTE)
 		{
-			token = new_token(input, SEPARATOR);
+			append_token(&tokens, new_token(input, holder));
 			input++;
-			append_token(&tokens, token);
+			tokens->n_cmds += 1;
 		}
 		else
 		{
 			value = get_value(&input);
-			token = new_token(value, WORD);
-			append_token(&tokens, token);
+			append_token(&tokens, new_token(value, WORD));
 			free(value);
 		}
 	}
 	return (tokens);
-}
-
-void	print_tokens(t_token *tokens)
-{
-	while (tokens)
-	{
-		ft_printf("[%d] %s\n", tokens->type, tokens->value);
-		tokens = tokens->next;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 22:36:45 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:45:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,17 @@ void	free_mini_function(char **cmd, char *path)
 	free(cmd);
 }
 
-void	executor_path(char *input, char *envp[])
+void	executor_path(t_parser *parser, char *envp[])
 {
 	char	*path;
 	pid_t	pid;
 	int		status;
-	char	**cmd;
 
-	path = get_path(envp, input);
+	path = get_path(envp, parser->cmd[0][0]);
 	if (!path)
-		ft_printf("%s: command not found\n", input);
+		ft_printf("%s: command not found\n", parser->cmd[0][0]);
 	else
 	{
-		cmd = mini_function(input);
 		pid = fork();
 		handle_signal_child();
 		if (pid == -1)
@@ -61,39 +59,24 @@ void	executor_path(char *input, char *envp[])
 		else if (pid == 0)
 		{
 			handle_signal();
-			exeggcute(cmd, path, envp);
+			exeggcute(parser->cmd[0], path, envp);
 		}
 		else
 			wait(&status);
-		free_mini_function(cmd, path);
 	}
 }
-/**
-{
-	char	*path;
-	int		check;
-	char	**cmd;
-
-	path = get_path(envp, input);
-	if (!path)
-		ft_printf("%s: command not found\n", input);
-	else
-	{
-		cmd = mini_function(input);
-		check = execve(path, cmd, envp);
-		ft_printf("Error: execve failed\n");
-		exit(check);
-	}
-}
-*/
+//		free_mini_function(parser->cmd[0], path);
 
 /**
  * @brief Function that executes the command sent by the user.
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(char *input, char *envp[])
+void	executor(t_parser *parser, char *envp[])
 {
+	char	*input;
+
+	input = parser->cmd[0][0];
 	if (!ft_strncmp(input, "echo", 4))
 		ft_echo(input);
 	else if (!ft_strncmp(input, "cd", 2))
@@ -109,5 +92,5 @@ void	executor(char *input, char *envp[])
 	else if (!ft_strncmp(input, "exit", 4))
 		ft_exit(input);
 	else
-		executor_path(input, envp);
+		executor_path(parser, envp);
 }

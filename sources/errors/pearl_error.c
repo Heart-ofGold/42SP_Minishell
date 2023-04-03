@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 16:34:25 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/02 16:33:51 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	is_empty(char *input)
 	space = 0;
 	while (input[index] != '\0')
 	{
-		if (input[index] == ' ' || input[index] == '\t')
+		if (is_whitespace(input[index]))
 			space++;
 		index++;
 	}

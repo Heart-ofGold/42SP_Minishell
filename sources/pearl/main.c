@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 15:06:20 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:36:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,18 @@
 */
 int	testing_input(char *input, char *envp[])
 {
-	t_token	*tokens;
+	t_token		*tokens;
+	t_parser	*parser;
 
 	tokens = lexer(input);
-	print_tokens(tokens);
+	parser = parsing(tokens);
 	free(tokens);
-	executor(input, envp);
+	if (parser->n_cmds == 0)
+		executor(parser, envp);
 	return (0);
 }
+//	test_parser(parser);
+//	print_tokens(tokens);
 
 /**
 *@brief Loop for the minishell to start.
@@ -43,7 +47,7 @@ void	mini_loop(char *envp[])
 		input = readline(PROMPT);
 		if (!input)
 			exit_error();
-		if (input && *input)
+		if (input)
 			add_history(input);
 		if (check_input(input))
 			continue ;
