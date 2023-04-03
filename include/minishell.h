@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 23:51:55 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:23:03 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	append_token(t_token **tokens, t_token *token);
 // Parser
 
 void	parsing(t_token *token);
+void	one_cmd(t_parser *parser, t_token *token);
+void	last_cmd(t_parser *parser, t_token *token, int index);
 
 // Utils
 
@@ -119,5 +121,6 @@ void	exit_error(void);
 // Testing functions
 
 void	print_tokens(t_token *tokens);
+void	test_parser(t_parser *parser);
 
 #endif

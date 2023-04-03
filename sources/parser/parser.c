@@ -6,29 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 23:53:10 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:27:59 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	test_parser(t_parser *parser)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (parser->cmd[i])
-	{
-		while (parser->cmd[i][j])
-		{
-			ft_printf("%s\n", parser->cmd[i][j]);
-			j++;
-		}
-		i++;
-	}
-}
 
 char	*ft_strdup_char(char c)
 {
@@ -62,7 +44,7 @@ t_parser	*start_parser(t_token *token)
 		i++;
 	}
 	parser->i = 0;
-	parser->n_cmds = token->n_cmds;
+	parser->n_cmds = 0;
 	return (parser);
 }
 
@@ -73,24 +55,29 @@ void	parsing(t_token *token)
 
 	index = 0;
 	parser = start_parser(token);
+	if (!token->next)
+	{
+		one_cmd(parser, token);
+		return ;
+	}
 	while (token->next)
 	{
 		if (token->type == WORD)
 		{
-			parser->cmd[parser->i][index] = ft_strdup(token->value);
-			if (token->next->type != WORD)
-				parser->i++;
+			parser->cmd[parser->i][index] = token->value;
 			index++;
 		}
 		else if (token->type == !WORD)
 		{
 			index = 0;
-			parser->cmd[parser->i++][index] = ft_strdup_char(token->value[0]);
+			parser->n_cmds++;
+			parser->i++;
 		}
-		ft_printf("\tteste\n");
 		token = token->next;
 	}
-	parser->cmd[parser->i] = NULL;
+	last_cmd(parser, token, parser->i);
+	test_parser(parser);
 }
+	//	ft_printf("\tteste\n");
 		// ft_printf("token->type: %d\n", token->type);
 		// ft_printf("token->value: %s\n", token->value);
