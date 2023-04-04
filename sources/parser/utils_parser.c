@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:21:49 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 19:33:42 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 05:14:06 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	last_node(t_parser *parser, t_token *token, int index, int j)
 	while (token)
 	{
 		parser->cmd[index][j] = token->value;
-		token = token->next;
+		token = token->next_cmd;
 	}
 	index++;
 	parser->cmd[index][0] = NULL;
