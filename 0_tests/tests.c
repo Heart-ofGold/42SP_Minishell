@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 18:56:58 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 03:44:03 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,13 @@ void	print_tokens(t_token *tokens)
 	while (temp)
 	{
 		ft_printf("[%d] %s.\n", temp->type, temp->value);
-		temp = temp->next;
+		temp = temp->next_cmd;
+	}
+	temp = tokens->next_redirection;
+	while (temp)
+	{
+		ft_printf("[%d] %s.\n", temp->type, temp->value);
+		temp = temp->next_redirection;
 	}
 	free(temp);
 }
