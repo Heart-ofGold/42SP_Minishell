@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 19:46:23 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:28:06 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ typedef struct s_token
 	t_type_t		type;	// the token type, e.g. WORD, PIPE, REDIRECT
 	int				n_cmds;	// number of commands
 	int				n_redirection; // number of redirection
-	char			*value;	// the value of the token, eg "ls", ">", "file.txt"
+	char			*value;
+		// the value of the token, eg "ls", ">", "file.txt"
 	struct s_token	*next_cmd;	// pointer to the next token of |
 	struct s_token	*next_redirection;	// pointer to the next token of type redirection
 }	t_token;
@@ -97,6 +98,7 @@ t_token *normalize(t_token *token);
 t_parser	*parsing(t_token *token);
 t_parser	*one_cmd(t_token *token);
 void		last_node(t_parser *parser, t_token *token, int index, int j);
+char		**ft_split_pipex(char *argument);
 
 // Utils
 

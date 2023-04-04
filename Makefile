@@ -39,6 +39,7 @@ MANDATORY_FILES =	pearl/main.c \
 					lexer/utils_token.c \
 					lexer/utils_lexer.c \
 					parser/parser.c \
+					parser/ft_split_pipex.c \
 					parser/utils_parser.c \
 					../0_tests/tests.c \
 

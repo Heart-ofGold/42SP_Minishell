@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 19:53:33 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:21:49 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	start_tokens(t_token **tokens)
 {
 	*tokens = malloc(sizeof(t_token));
 	(*tokens)->value = NULL;
-	(*tokens)->n_cmds = 1;
+	(*tokens)->n_cmds = 0;
 	(*tokens)->n_redirection = 0;
 	(*tokens)->next_cmd = NULL;
 	(*tokens)->next_redirection = NULL;

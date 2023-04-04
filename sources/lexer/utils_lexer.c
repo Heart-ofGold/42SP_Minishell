@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 19:53:55 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:28:37 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ t_token	*normalize(t_token *token)
 
 	token->next_cmd->next_redirection = token->next_redirection;
 	tmp = token->next_cmd;
+	tmp->n_cmds = token->n_cmds;
+	tmp->n_redirection = token->n_redirection;	
 	free(token);
 	return (tmp);
 }

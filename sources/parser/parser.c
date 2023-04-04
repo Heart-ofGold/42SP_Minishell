@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 19:45:24 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:27:04 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_parser	*parsing(t_token *token)
 	{
 		if (token->type == WORD)
 		{
-			parser->cmd[parser->i][index] = token->value;
+			parser->cmd[parser->i] = ft_split_pipex(token->value);
 			index++;
 		}
 		else if (token->type == !WORD)
