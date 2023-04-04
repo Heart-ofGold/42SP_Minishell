@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 03:51:40 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 05:01:39 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,10 @@
 */
 t_token	*get_next_token(char *input, int end_pos)
 {
-	t_token	*token;
-
-	token = NULL;
 	while (input[end_pos] != '\0')
 	{
 		if (is_quote(input[end_pos])){
-			end_pos = end_pos + &input[end_pos] - ft_strchr(&input[end_pos] + 1, input[end_pos]);	
+			end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos]) - &input[end_pos];
 		}
 		else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos]) || is_separator(input[end_pos]))
 		{
@@ -101,7 +98,7 @@ t_token	*get_next_token(char *input, int end_pos)
 		}
 		end_pos++;
 	}
-	return (new_token(input, WORD, end_pos - 1));
+	return (new_token(input, WORD, end_pos));
 }
 
 /**
@@ -121,7 +118,7 @@ t_token	*new_token(char *value, int type, int size)
 	token->n_cmds = 0;
 	token->n_redirection = 0;
 	token->type = type;
-	token->value = ft_substr(value, 0, size);
+	token->value = ft_substr(value, 0, size + 1);
 	token->next_cmd = NULL;
 	token->next_redirection = NULL;
 	return (token);

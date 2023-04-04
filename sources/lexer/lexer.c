@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 03:50:41 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 05:01:56 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ t_token	*lexer(char *input)
 		{
 			value = ft_strchr(input + 1, *input);
 			tmp = append_token(tokens, new_token(input, WORD, value - input + 1), tmp);
-		}			
+		}
 		else if (holder == SEPARATOR || holder == PIPE)
 		{
 			tmp = append_token(tokens, new_token(input, holder, 1), tmp);
@@ -128,14 +128,15 @@ t_token	*lexer(char *input)
 		else if (holder == REDIRECT)
 		{
 			if (input[1] == *input)
-				tmp = append_token(tokens, new_token(value, WORD, 2), tmp);
+				tmp = append_token(tokens, new_token(input, WORD, 2), tmp);
 			else
-				tmp = append_token(tokens, new_token(value, WORD, 1), tmp);
-			free(value);
+				tmp = append_token(tokens, new_token(input, WORD, 1), tmp);
+			input += ft_strlen(tmp->value);
 		}
 		else if (holder == WORD)
 		{
-			append_token(tokens, get_next_token(value, 0), tmp);
+			tmp = append_token(tokens, get_next_token(input, 0), tmp);
+			input += ft_strlen(tmp->value);
 		}
 	}
 	return (tokens);
