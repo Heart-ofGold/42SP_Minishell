@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 02:29:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 16:32:02 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	testing_input(char *input, char *envp[])
 {
 	t_token		*tokens;
 	t_parser	*parser;
-	char 		*trinned_input;
+	char		*trinned_input;
 
 	trinned_input = ft_strtrim(input, " \n\t");
 	tokens = lexer(input);

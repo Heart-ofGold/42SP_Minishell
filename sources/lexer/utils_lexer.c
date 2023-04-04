@@ -3,46 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 06:20:11 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 16:38:16 by feralves         ###   ########.fr       */
+/*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
+/*   Updated: 2023/04/04 17:37:39 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_redirect(char c)
+char	*when_quotes(t_token	*tokens, t_token **tmp, char *input)
 {
-	if (c == '<' || c == '>')
-		return (1);
-	return (0);
+	char	*value;
+
+	value = NULL;
+	value = ft_strchr(input + 1, *input);
+	*tmp = append_token(tokens, n_token(input, WORD, value - input + 1),*tmp);
+	return (input + ft_strlen((*tmp)->value));
 }
 
-int	is_pipe(char c)
+char	*when_redirect(t_token *tokens, t_token **tmp, char *input)
 {
-	if (c == '|')
-		return (1);
-	return (0);
+	if (input[1] == *input)
+		*tmp = append_token(tokens, n_token(input, WORD, 2), *tmp);
+	else
+	{
+		*tmp = append_token(tokens, n_token(input, WORD, 1), *tmp);
+	}
+	return (input + ft_strlen((*tmp)->value));
 }
 
-int	is_quote(char c)
+char	*when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int holder)
 {
-	if (c == '\'' || c == '\"')
-		return (1);
-	return (0);
+	*tmp = append_token(tokens, n_token(input, holder, 1), *tmp);
+	input++;
+	return (input);
 }
 
-int	is_whitespace(char c)
+char	*when_word(t_token *tokens, t_token **tmp, char *input)
 {
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	return (0);
-}
-
-int	is_separator(char c)
-{
-	if (c == ';')
-		return (1);
-	return (0);
+	*tmp = append_token(tokens, get_next_token(input, 0), *tmp);
+	return (input + ft_strlen((*tmp)->value));
 }

@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 03:49:13 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:29:07 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define EXIT_SUCCESS 0
 # define TRUE 1
 # define FALSE 0
-
 # define QUOTE 4 // uma aspas simples ou dupla
 # define WHITESPACE 5 // um espaço em branco
 
@@ -84,9 +83,13 @@ t_token	*lexer(char *input);
 t_token	*create_redirect_token(char c, int pos);
 t_token	*create_pipe_token(int pos);
 t_token	*create_word_token(char *input, int start_pos, int end_pos);
-t_token	*new_token(char *value, int type, int size);
+t_token	*n_token(char *value, int type, int size);
 t_token	*get_next_token(char *input, int end_pos);
 t_token *append_token(t_token *tokens, t_token *token, t_token *last_token);
+char *	when_word(t_token *tokens, t_token **tmp, char *input);
+char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
+char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
+char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
 
 // Parser
 

@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 05:01:56 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:31:09 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 *to the linked list.
 *@return none.
 */
-t_token *append_token(t_token *tokens, t_token *token, t_token *last_token)
+t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token)
 {
 	t_token	*current;
 
@@ -39,7 +39,7 @@ t_token *append_token(t_token *tokens, t_token *token, t_token *last_token)
 		current->next_cmd = token;
 		tokens->n_cmds++;
 	}
-	return(token);
+	return (token);
 }
 
 /**
@@ -54,7 +54,8 @@ char	*get_value(char **input)
 	int		len;
 
 	len = 0;
-	while ((*input)[len] && !is_separator((*input)[len]) && !is_pipe((*input)[len]) && !is_redirect((*input)[len]))
+	while ((*input)[len] && !is_separator((*input)[len]) &&
+	!is_pipe((*input[len])) && !is_redirect((*input)[len]))
 		len++;
 	if (is_whitespace((*input)[len]))
 		len++;
@@ -92,6 +93,7 @@ int	is_symbol(char c)
 	else
 		return (WORD);
 }
+
 /**
 *@brief This function is responsible for parsing an input string and creating a 
 *linked list of tokens, where each token is represented by a t_token object.
@@ -101,8 +103,7 @@ int	is_symbol(char c)
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
-	t_token *tmp;
-	char	*value;
+	t_token	*tmp;
 	int		holder;
 
 	start_tokens(&tokens);
@@ -116,28 +117,13 @@ t_token	*lexer(char *input)
 		if (holder == WHITESPACE)
 			input++;
 		else if (holder == QUOTE)
-		{
-			value = ft_strchr(input + 1, *input);
-			tmp = append_token(tokens, new_token(input, WORD, value - input + 1), tmp);
-		}
+			input = when_quotes(tokens, &tmp, input);
 		else if (holder == SEPARATOR || holder == PIPE)
-		{
-			tmp = append_token(tokens, new_token(input, holder, 1), tmp);
-			input++;
-		}
+			input = when_sep_pipe(tokens, &tmp, input, holder);
 		else if (holder == REDIRECT)
-		{
-			if (input[1] == *input)
-				tmp = append_token(tokens, new_token(input, WORD, 2), tmp);
-			else
-				tmp = append_token(tokens, new_token(input, WORD, 1), tmp);
-			input += ft_strlen(tmp->value);
-		}
+			input = when_redirect(tokens, &tmp, input);
 		else if (holder == WORD)
-		{
-			tmp = append_token(tokens, get_next_token(input, 0), tmp);
-			input += ft_strlen(tmp->value);
-		}
+			input = when_word(tokens, &tmp, input);
 	}
 	return (tokens);
 }
