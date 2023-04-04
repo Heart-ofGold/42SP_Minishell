@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 19:38:29 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 03:49:13 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,33 @@
 # define EXIT_SUCCESS 0
 # define TRUE 1
 # define FALSE 0
-# define WORD 0 // uma palavra
-# define PIPE 1 // um pipe "|"
-# define REDIRECT 2 // um redirecionador "<" ou ">"
-# define SEPARATOR 3 // um separador ";"
+
 # define QUOTE 4 // uma aspas simples ou dupla
 # define WHITESPACE 5 // um espaço em branco
 
+
+
 // structs
+
+typedef enum e_type_token
+{
+	WORD , // uma palavra
+	PIPE , // um pipe "|"
+	REDIRECT , // um redirecionador "<" ou ">"
+	SEPARATOR , // um separador ";"
+}	t_type_t;
 
 /**
  * @brief token structure
  */
 typedef struct s_token
 {
-	int				type;	// the token type, e.g. WORD, PIPE, REDIRECT
+	t_type_t		type;	// the token type, e.g. WORD, PIPE, REDIRECT
 	int				n_cmds;	// number of commands
-	int				n_tokens; // number of tokens
+	int				n_redirection; // number of redirection
 	char			*value;	// the value of the token, eg "ls", ">", "file.txt"
-	int				start_pos;// the starting position of the token in the input
-	int				end_pos;// the final position of the token in the input
-	struct s_token	*next;	// pointer to the next token in the linked list
+	struct s_token	*next_cmd;	// pointer to the next token of |
+	struct s_token	*next_redirection;	// pointer to the next token of type redirection
 }	t_token;
 
 typedef struct s_parser
@@ -78,9 +84,9 @@ t_token	*lexer(char *input);
 t_token	*create_redirect_token(char c, int pos);
 t_token	*create_pipe_token(int pos);
 t_token	*create_word_token(char *input, int start_pos, int end_pos);
-t_token	*get_next_token(char *input, int *pos);
-t_token	*new_token(char *value, int type);
-void	append_token(t_token **tokens, t_token *token);
+t_token	*new_token(char *value, int type, int size);
+t_token	*get_next_token(char *input, int end_pos);
+t_token *append_token(t_token *tokens, t_token *token, t_token *last_token);
 
 // Parser
 
