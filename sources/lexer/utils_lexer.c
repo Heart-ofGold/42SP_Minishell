@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 17:37:39 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:46:05 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,14 @@ char	*when_word(t_token *tokens, t_token **tmp, char *input)
 {
 	*tmp = append_token(tokens, get_next_token(input, 0), *tmp);
 	return (input + ft_strlen((*tmp)->value));
+}
+
+t_token *normalize(t_token *token)
+{
+	t_token *tmp;
+	
+	token->next_cmd->next_redirection = token->next_redirection;
+	tmp = token->next_cmd;
+	free(token);
+	return (tmp);
 }

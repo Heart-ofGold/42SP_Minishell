@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 17:29:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/04 19:46:23 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char *	when_word(t_token *tokens, t_token **tmp, char *input);
 char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
 char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
+t_token *normalize(t_token *token);
 
 // Parser
 
