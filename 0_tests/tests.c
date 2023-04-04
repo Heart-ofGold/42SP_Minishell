@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 23:24:01 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:56:58 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,10 @@ void	print_tokens(t_token *tokens)
 	temp = tokens;
 	while (temp)
 	{
-		ft_printf("[%d] %s\n", temp->type, temp->value);
-		temp = temp->next_cmd;
+		ft_printf("[%d] %s.\n", temp->type, temp->value);
+		temp = temp->next;
 	}
-	temp = tokens;
-	while (temp->next_redirection)
-	{
-		temp = tokens->next_redirection;
-		ft_printf("[%d] %s\n", temp->type, temp->value);
-	}
+	free(temp);
 }
 
 void	test_parser(t_parser *parser)

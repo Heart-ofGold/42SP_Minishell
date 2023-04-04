@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 02:29:07 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/03 19:36:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,18 @@ int	testing_input(char *input, char *envp[])
 {
 	t_token		*tokens;
 	t_parser	*parser;
-	char 		*trinned_input;
 
-	trinned_input = ft_strtrim(input, " \n\t");
 	tokens = lexer(input);
-	print_tokens(tokens);
 	parser = parsing(tokens);
 	free(tokens);
 	if (parser->n_cmds == 0)
 		executor(parser, envp);
-	free(trinned_input);
 	return (0);
 }
-
 //	test_parser(parser);
+//	print_tokens(tokens);
 
-	/**
+/**
 *@brief Loop for the minishell to start.
 *@param none
 *@return none.

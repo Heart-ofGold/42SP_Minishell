@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llima-ce <llima-ce@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/03 23:29:34 by llima-ce         ###   ########.fr       */
+/*   Updated: 2023/04/02 23:54:56 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,44 @@
 *@param pos
 *@return the next token found in the string
 */
-t_token	*get_next_token(char *input, int end_pos)
-{
-	while (input[end_pos] != '\0')
-	{
-		if (is_quote(input[end_pos])){
-			end_pos += ft_strchr(&input[end_pos] + 1, input[end_pos]) - &input[end_pos];
-		}
-		else if (is_redirect(input[end_pos]) || is_pipe(input[end_pos]) || is_separator(input[end_pos]))
-		{
-			return (new_token(input, WORD, end_pos - 1));
-		}
-		end_pos++;
-	}
-	return (new_token(input, WORD, end_pos));
-}
+// t_token	*get_next_token(char *input, int *pos)
+// {
+// 	int		start_pos;
+// 	int		end_pos;
+// 	t_token	*token;
+
+// 	start_pos = *pos;
+// 	end_pos = *pos;
+// 	token = NULL;
+// 	while (input[*pos] != '\0')
+// 	{
+// 		if (is_whitespace(input[*pos]))
+// 		{
+// 			end_pos = *pos - 1;
+// 			break ;
+// 		}
+// 		else if (is_redirect(input[*pos]))
+// 		{
+// 			token = create_redirect_token(input[*pos], *pos);
+// 			*pos = *pos + 1;
+// 			return (token);
+// 		}
+// 		else if (input[*pos] == '|')
+// 		{
+// 			token = create_pipe_token(*pos);
+// 			*pos = *pos + 1;
+// 			return (token);
+// 		}
+// 		else
+// 		{
+// 			end_pos = *pos;
+// 			*pos = *pos + 1;
+// 		}
+// 	}
+// 	if (input[*pos] == '\0')
+// 		end_pos = *pos - 1;
+// 	return (create_word_token(input, start_pos, end_pos));
+// }
 
 /**
 *@brief a new token with the type and value specified in the parameters
@@ -108,18 +131,19 @@ t_token	*get_next_token(char *input, int end_pos)
 *@return takes a value and a type and creates a new token with those values, 
 *setting the start and end positions to 0 and the next token to NULL
 */
-t_token	*new_token(char *value, int type, int size)
+t_token	*new_token(char *value, int type)
 {
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
 	if (!token)
 		return (NULL);
-	token->n_cmds = 0;
-	token->n_redirection = 0;
+	token->n_cmds = 1;
+	token->n_tokens = 0;
 	token->type = type;
-	token->value = ft_substr(value, 0, size + 1);
-	token->next_cmd = NULL;
-	token->next_redirection = NULL;
+	token->value = ft_strdup(value);
+	token->start_pos = 0;
+	token->end_pos = ft_strlen(value);
+	token->next = NULL;
 	return (token);
 }
