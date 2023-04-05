@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit_mod.c                                   :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/30 17:30:59 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 19:27:50 by feralves         ###   ########.fr       */
+/*   Created: 2023/04/05 20:30:15 by feralves          #+#    #+#             */
+/*   Updated: 2023/04/05 21:36:23 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-/**
-*@brief checks for a digit (0 through 9).
-*@param c String as a void
-*@return returns non-zero value if c is a digit, else it returns 0
-*/
-int	ft_isdigit_mod(char *string)
+void	ft_free_all(t_token *tokens)
 {
-	int	i;
-
-	i = 0;
-	while (string[++i])
+	while (tokens->next_cmd)
 	{
-		if (!ft_isdigit(string[i]) && string[0] != '-' && string[0] != '+')
-			return (0);
+		ft_free_array(tokens->cmd);
+		free(tokens->cmd);
+		free(tokens->value);
+		free(tokens->path);
+		tokens = tokens->next_cmd;
 	}
-	return (2);
+	free (tokens);
+}
+
+void	ft_clean_mem(t_token *tokens)
+{
+	ft_free_all(tokens);
 }
