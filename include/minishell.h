@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:24:10 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:39:47 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,11 @@ void	executor(t_token *token, char *envp[]);
 
 void	if_cmd_error(char *message);
 void	exit_error(void);
+
+// Cleaning
+
+void	ft_free_all(t_token *tokens);
+void	ft_clean_mem(t_token *tokens);
 
 // Testing functions
 

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:18:01 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:31:47 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	testing_input(char *input, char *envp[])
 	if (tokens->n_cmds != 0)
 		executor(tokens, envp);
 //	free(trimmed_input);
-	free(tokens);
+	ft_clean_mem(tokens);
 	return (0);
 }
 
