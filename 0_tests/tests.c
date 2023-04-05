@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tests.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 18:56:58 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 17:39:44 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,15 @@ void	print_tokens(t_token *tokens)
 	temp = tokens;
 	while (temp)
 	{
-		ft_printf("[%d] %s.\n", temp->type, temp->value);
-		temp = temp->next;
+		ft_printf("[%d] %s\n", temp->type, temp->value);
+		temp = temp->next_cmd;
 	}
-	free(temp);
+	temp = tokens;
+	while (temp->next_redirection)
+	{
+		temp = tokens->next_redirection;
+		ft_printf("[%d] %s\n", temp->type, temp->value);
+	}
 }
 
 void	test_parser(t_parser *parser)

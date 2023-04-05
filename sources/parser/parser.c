@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 19:44:30 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:27:04 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ t_parser	*start_parser(t_token *token)
 	parser = (t_parser *)malloc(sizeof(t_parser));
 	if (!parser)
 		return (NULL);
-	parser->cmd = (char ***)malloc(sizeof(char **) * token->n_tokens + 1);
+	parser->cmd = (char ***)malloc(sizeof(char **) * token->n_cmds + 1);
 	if (!parser->cmd)
 		return (NULL);
-	while (i < token->n_tokens)
+	while (i < token->n_cmds)
 	{
-		parser->cmd[i] = (char **)malloc(sizeof(char *) * token->n_tokens + 1);
+		parser->cmd[i] = (char **)malloc(sizeof(char *) * token->n_cmds + 1);
 		if (!parser->cmd[i])
 			return (NULL);
 		i++;
@@ -55,13 +55,13 @@ t_parser	*parsing(t_token *token)
 
 	index = 0;
 	parser = start_parser(token);
-	if (!token->next)
+	if (!token->next_cmd)
 		return (one_cmd(token));
-	while (token->next)
+	while (token->next_cmd)
 	{
 		if (token->type == WORD)
 		{
-			parser->cmd[parser->i][index] = token->value;
+			parser->cmd[parser->i] = ft_split_pipex(token->value);
 			index++;
 		}
 		else if (token->type == !WORD)
@@ -70,7 +70,7 @@ t_parser	*parsing(t_token *token)
 			parser->n_cmds++;
 			parser->i++;
 		}
-		token = token->next;
+		token = token->next_cmd;
 	}
 	last_node(parser, token, parser->i, index);
 	return (parser);

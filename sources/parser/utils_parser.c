@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_parser.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:21:49 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 19:33:42 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:31:16 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ t_parser	*one_cmd(t_token *token)
 	if (!parser->cmd[0])
 		return (NULL);
 	parser->n_cmds = 0;
-	parser->cmd[0][0] = token->value;
+	parser->cmd[0] = ft_split_pipex(token->value);
 	return (parser);
 }
 
 void	last_node(t_parser *parser, t_token *token, int index, int j)
 {
+	(void )j;
 	while (token)
 	{
-		parser->cmd[index][j] = token->value;
-		token = token->next;
+		parser->cmd[index] = ft_split_pipex(token->value);
+		token = token->next_cmd;
 	}
 	index++;
 	parser->cmd[index][0] = NULL;

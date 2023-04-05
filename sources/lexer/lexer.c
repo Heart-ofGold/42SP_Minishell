@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 23:54:34 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/04 20:21:49 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,26 @@
 *to the linked list.
 *@return none.
 */
-void	append_token(t_token **tokens, t_token *token)
+t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token)
 {
 	t_token	*current;
 
-	if ((*tokens)->value == NULL)
-		*tokens = token;
+	current = tokens;
+	while (current->next_cmd != NULL && last_token->type != REDIRECT)
+		current = current->next_cmd;
+	while (last_token->type == REDIRECT && current->next_redirection != NULL)
+		current = current->next_redirection;
+	if (last_token->type == REDIRECT)
+	{
+		current->next_redirection = token;
+		tokens->n_redirection++;
+	}
 	else
 	{
-		current = *tokens;
-		while (current->next != NULL)
-			current = current->next;
-		current->next = token;
+		current->next_cmd = token;
+		tokens->n_cmds++;
 	}
-	(*tokens)->n_tokens++;
+	return (token);
 }
 
 /**
@@ -49,8 +55,7 @@ char	*get_value(char **input)
 
 	len = 0;
 	while ((*input)[len] && !is_separator((*input)[len]) &&
-		!is_whitespace((*input)[len]) && !is_pipe((*input)[len]) &&
-		!is_redirect((*input)[len]))
+	!is_pipe((*input[len])) && !is_redirect((*input)[len]))
 		len++;
 	if (is_whitespace((*input)[len]))
 		len++;
@@ -66,12 +71,11 @@ void	start_tokens(t_token **tokens)
 {
 	*tokens = malloc(sizeof(t_token));
 	(*tokens)->value = NULL;
-	(*tokens)->start_pos = 0;
-	(*tokens)->end_pos = 0;
-	(*tokens)->n_cmds = 1;
-	(*tokens)->n_tokens = 0;
-	(*tokens)->next = NULL;
-	(*tokens)->type = 0;
+	(*tokens)->n_cmds = 0;
+	(*tokens)->n_redirection = 0;
+	(*tokens)->next_cmd = NULL;
+	(*tokens)->next_redirection = NULL;
+	(*tokens)->type = SEPARATOR;
 }
 
 int	is_symbol(char c)
@@ -99,28 +103,27 @@ int	is_symbol(char c)
 t_token	*lexer(char *input)
 {
 	t_token	*tokens;
-	char	*value;
+	t_token	*tmp;
 	int		holder;
 
 	start_tokens(&tokens);
+	tmp = tokens;
+	holder = is_symbol(*input);
+	if (holder == SEPARATOR || holder == PIPE)
+		perror("bash: syntax error near unexpected token `|'");
 	while (*input)
 	{
 		holder = is_symbol(*input);
 		if (holder == WHITESPACE)
 			input++;
-		else if (holder == SEPARATOR || holder == REDIRECT || holder == PIPE
-			|| holder == QUOTE)
-		{
-			append_token(&tokens, new_token(input, holder));
-			input++;
-			tokens->n_cmds += 1;
-		}
-		else
-		{
-			value = get_value(&input);
-			append_token(&tokens, new_token(value, WORD));
-			free(value);
-		}
+		else if (holder == QUOTE)
+			input = when_quotes(tokens, &tmp, input);
+		else if (holder == SEPARATOR || holder == PIPE)
+			input = when_sep_pipe(tokens, &tmp, input, holder);
+		else if (holder == REDIRECT)
+			input = when_redirect(tokens, &tmp, input);
+		else if (holder == WORD)
+			input = when_word(tokens, &tmp, input);
 	}
-	return (tokens);
+	return (normalize(tokens));
 }
