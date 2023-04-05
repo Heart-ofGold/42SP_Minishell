@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 20:21:49 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/05 04:11:53 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token)
 	else
 	{
 		current->next_cmd = token;
-		tokens->n_cmds++;
+		if (token->type == WORD)
+			tokens->n_cmds++;
 	}
 	return (token);
 }

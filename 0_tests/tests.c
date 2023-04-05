@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 17:39:44 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/05 04:02:48 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,14 @@ void	print_tokens(t_token *tokens)
 	}
 }
 
-void	test_parser(t_parser *parser)
+void	test_parser(t_token *token)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	ft_printf("\tTesting parser:\n");
-	while (i <= parser->n_cmds)
+	while (i <= token->n_cmds)
 	{
-		j = 0;
-		while (parser->cmd[i][j])
-		{
-			ft_printf("\t\tcmd %d:%d: %s\n", i, j, parser->cmd[i][j]);
-			j++;
-		}
 		i++;
 	}
 }

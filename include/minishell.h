@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/04 22:28:06 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/05 03:56:47 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,12 @@ typedef struct s_token
 	t_type_t		type;	// the token type, e.g. WORD, PIPE, REDIRECT
 	int				n_cmds;	// number of commands
 	int				n_redirection; // number of redirection
-	char			*value;
-		// the value of the token, eg "ls", ">", "file.txt"
+	char			*value; // the value of the token, eg "ls", ">", "file.txt"
+	char			**cmd;
+	char			*path;
 	struct s_token	*next_cmd;	// pointer to the next token of |
 	struct s_token	*next_redirection;	// pointer to the next token of type redirection
 }	t_token;
-
-typedef struct s_parser
-{
-	int		n_cmds;
-	int		i;
-	char	***cmd;
-}	t_parser;
 
 // Functions
 
@@ -95,9 +89,9 @@ t_token *normalize(t_token *token);
 
 // Parser
 
-t_parser	*parsing(t_token *token);
-t_parser	*one_cmd(t_token *token);
-void		last_node(t_parser *parser, t_token *token, int index, int j);
+t_token		*parsing(t_token *token);
+// t_parser	*one_cmd(t_token *token);
+// void		last_node(t_parser *parser, t_token *token, int index, int j);
 char		**ft_split_pipex(char *argument);
 
 // Utils
@@ -123,7 +117,7 @@ void	ft_exit(char *input);
 // Executor
 
 char	*get_path(char *envp[], char *cmd);
-void	executor(t_parser *parser, char *envp[]);
+void	executor(t_token *token, char *envp[]);
 
 // Errors
 
@@ -133,6 +127,6 @@ void	exit_error(void);
 // Testing functions
 
 void	print_tokens(t_token *tokens);
-void	test_parser(t_parser *parser);
+void	test_parser(t_token *token);
 
 #endif
