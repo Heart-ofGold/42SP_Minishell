@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:25:57 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:27:05 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,6 @@ void	exeggcute(char **cmd, char *path, char **envp)
 	check = execve(path, cmd, envp);
 	ft_printf("Error: execve failed\n");
 	exit(check);
-}
-
-char	**mini_function(char	*input)
-{
-	char	**cmd;
-
-	cmd = (char **)malloc(2 * sizeof(char *));
-	if (!input)
-		return (NULL);
-	cmd[0] = ft_strdup(input);
-	cmd[1] = NULL;
-	return (cmd);
-}
-
-void	free_mini_function(char **cmd, char *path)
-{
-	free(cmd[1]);
-	free(cmd[0]);
-	free(path);
-	free(cmd);
 }
 
 void	executor_path(t_token *token, char *envp[])
@@ -66,7 +46,6 @@ void	executor_path(t_token *token, char *envp[])
 			wait(&status);
 	}
 }
-//		free_mini_function(parser->cmd[0], path);
 
 /**
  * @brief Function that executes the command sent by the user.
