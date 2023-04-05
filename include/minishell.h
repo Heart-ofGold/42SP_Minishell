@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 03:56:47 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:05:47 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_cd(char *input);
 void	ft_pwd(char *input);
 void	ft_export(char *input);
 void	ft_unset(char *input);
-void	ft_exit(char *input);
+void	ft_exit(char **input);
 
 // Executor
 

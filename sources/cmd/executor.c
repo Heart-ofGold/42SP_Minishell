@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 04:30:25 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:17:13 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	executor(t_token *token, char *envp[])
 	else if (!ft_strncmp(input, "env", 4))
 		ft_env(input);
 	else if (!ft_strncmp(input, "exit", 5))
-		ft_exit(input);
+		ft_exit(token->cmd);
 	else
 		executor_path(token, envp);
 }

@@ -6,34 +6,54 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 16:33:54 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 19:42:38 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+void	ft_clean_exit(char *status)
+{
+	ft_printf("Exiting...\n");
+	rl_clear_history();
+	exit(status);
+}
+
+void	ft_exit_invalid(char *status, int errorno)
+{
+	if (errorno == 1)
+		ft_printf("exit: %s: too many arguments\n", input[i]);
+	else
+		ft_printf("exit: %s: numeric argument required\n", input[1]);
+	rl_clear_history();
+	exit(status);
+}
 
 /**
 *@brief Checks if Minishell wants to exit.
 *@param input the input sent after the prompt
 *@return none.
 */
-void	ft_exit(char *input)
+void	ft_exit(char **input)
 {
-	if (input[4] == '\0')
-	{
-		ft_printf("Exiting...\n");
-		exit(EXIT_SUCCESS);
-	}
+	int	i;
+
+	i = 1;
+	if (input[1] == NULL)
+		ft_clean_exit(EXIT_SUCCESS);
 	else
 	{
-		ft_strtrim_mod(input, "exit ");
-		if (ft_isdigit_mod(input))
+		while(input[i])
 		{
-			ft_printf("Exiting...\n");
-			exit(ft_atoi_mod(input));
+			ft_printf("input: %c\n", input[i]);
+			if (!ft_isdigit_mod(input[i]))
+				ft_clean_exit(200);
+			else if (input[2])
+				ft_printf("exit: %s: too many arguments\n", input[i]);
+			else
+				ft_printf("exit: %s: numeric argument required\n", input[1]);
+			i++;
 		}
-		else
-			ft_printf("exit: %s: numeric argument required\n", &input[5]);
 	}
 }
 
@@ -44,5 +64,6 @@ void	ft_exit(char *input)
 */
 void	exit_error(void)
 {
+	rl_clear_history();
 	exit(EXIT_FAILURE);
 }
