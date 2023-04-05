@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:39:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 22:46:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ t_token	*create_pipe_token(int pos);
 t_token	*create_word_token(char *input, int start_pos, int end_pos);
 t_token	*n_token(char *value, int type, int size);
 t_token	*get_next_token(char *input, int end_pos);
-t_token *append_token(t_token *tokens, t_token *token, t_token *last_token);
+t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token);
 char *	when_word(t_token *tokens, t_token **tmp, char *input);
 char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
 char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
-t_token *normalize(t_token *token);
-t_token		*parsing(t_token *token);
-char		**ft_split_pipex(char *argument);
+t_token	*normalize(t_token *token);
+t_token	*parsing(t_token *token);
+char	**ft_split_pipex(char *argument);
 
 // Utils
 
