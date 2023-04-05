@@ -6,25 +6,25 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 19:42:38 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:06:30 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_clean_exit(char *status)
+void	ft_clean_exit(int status)
 {
 	ft_printf("Exiting...\n");
 	rl_clear_history();
 	exit(status);
 }
 
-void	ft_exit_invalid(char *status, int errorno)
+void	ft_exit_invalid(char **input, int status, int errorno)
 {
 	if (errorno == 1)
-		ft_printf("exit: %s: too many arguments\n", input[i]);
+		ft_printf("exit: exited with too many arguments\n");
 	else
-		ft_printf("exit: %s: numeric argument required\n", input[1]);
+		ft_printf("exit: %s: exited with invalid argument\n", input[1]);
 	rl_clear_history();
 	exit(status);
 }
@@ -34,24 +34,23 @@ void	ft_exit_invalid(char *status, int errorno)
 *@param input the input sent after the prompt
 *@return none.
 */
-void	ft_exit(char **input)
+void	ft_exit(t_token *token)
 {
 	int	i;
 
 	i = 1;
-	if (input[1] == NULL)
+	if (token->cmd[1] == NULL)
 		ft_clean_exit(EXIT_SUCCESS);
 	else
 	{
-		while(input[i])
+		while(token->cmd[i])
 		{
-			ft_printf("input: %c\n", input[i]);
-			if (!ft_isdigit_mod(input[i]))
-				ft_clean_exit(200);
-			else if (input[2])
-				ft_printf("exit: %s: too many arguments\n", input[i]);
+			if (ft_isdigit_mod(token->cmd[i]))
+				ft_clean_exit(ft_atoi_mod(token->cmd[1]));
+			else if (token->cmd[2])
+				ft_exit_invalid(token->cmd, 42, 1);
 			else
-				ft_printf("exit: %s: numeric argument required\n", input[1]);
+				ft_exit_invalid(token->cmd, 2, 0);
 			i++;
 		}
 	}

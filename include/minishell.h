@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 19:05:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:24:10 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,7 @@ char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
 char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
 t_token *normalize(t_token *token);
-
-// Parser
-
 t_token		*parsing(t_token *token);
-// t_parser	*one_cmd(t_token *token);
-// void		last_node(t_parser *parser, t_token *token, int index, int j);
 char		**ft_split_pipex(char *argument);
 
 // Utils
@@ -112,7 +107,7 @@ void	ft_cd(char *input);
 void	ft_pwd(char *input);
 void	ft_export(char *input);
 void	ft_unset(char *input);
-void	ft_exit(char **input);
+void	ft_exit(t_token *token);
 
 // Executor
 
@@ -127,6 +122,5 @@ void	exit_error(void);
 // Testing functions
 
 void	print_tokens(t_token *tokens);
-void	test_parser(t_token *token);
 
 #endif

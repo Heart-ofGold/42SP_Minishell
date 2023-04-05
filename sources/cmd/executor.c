@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 19:17:13 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 20:25:57 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	executor_path(t_token *token, char *envp[])
 {
 	pid_t	pid;
 	int		status;
+	int		i;
 
+	i = 0;
 	token->path = get_path(envp, token->cmd[0]);
 	if (!token->path)
-		ft_printf("%s: command not found\n", token->cmd[0]);
+		ft_printf("%s: command not found\n", token->value);
 	else
 	{
 		pid = fork();
@@ -89,7 +91,7 @@ void	executor(t_token *token, char *envp[])
 	else if (!ft_strncmp(input, "env", 4))
 		ft_env(input);
 	else if (!ft_strncmp(input, "exit", 5))
-		ft_exit(token->cmd);
+		ft_exit(token);
 	else
 		executor_path(token, envp);
 }
