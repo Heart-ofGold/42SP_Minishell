@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:27:05 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 21:34:18 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ void	executor_path(t_token *token, char *envp[])
 {
 	pid_t	pid;
 	int		status;
-	int		i;
 
-	i = 0;
 	token->path = get_path(envp, token->cmd[0]);
 	if (!token->path)
 		ft_printf("%s: command not found\n", token->value);

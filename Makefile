@@ -24,6 +24,7 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 #scr functions
 MANDATORY_FILES =	pearl/main.c \
 					pearl/signal_utils.c \
+					pearl/exit.c \
 					errors/pearl_error.c \
 					cmd/cmd_path.c \
 					cmd/executor.c \
@@ -45,7 +46,7 @@ MANDATORY_FILES =	pearl/main.c \
 
 #directories
 OBJPATH =			temps
-MANDATORY_PATH =	sources
+VPATH =	sources
 LIBFT_PATH =		./libft
 LIBFT =				$(LIBFT_PATH)/libft.a
 
@@ -99,7 +100,7 @@ $(NAME): $(LIBFT)  $(OBJ_MANDATORY)
 		@$(LOG_SUC) "$(NAME) succesfully compiled!"
 
 ##compile MANDATORY
-$(OBJPATH)/%.o: $(MANDATORY_PATH)/%.c $(HEADER)
+$(OBJPATH)/%.o: $(VPATH)/%.c $(HEADER)
 		@mkdir -p $(dir $@)
 		@cc $(FLAGS) -c $< -o $@ $(INCLUDE)
 		@echo -n "$(YELLOW)Compiling ${NAME} $(WHITE)$$(( $(PROGRESS) * 100 / $(NUMBER_OF_FILES)))%\r"
@@ -139,7 +140,7 @@ git:
 
 norm:
 		clear
-		@norminette ${addprefix ${MANDATORY_PATH}/, ${MANDATORY_FILES}} | grep -v "OK!" || echo "All files ok!"
+		@norminette ${addprefix ${VPATH}/, ${MANDATORY_FILES}} | grep -v "OK!" || echo "All files ok!"
 
 norm_CI:
-		norminette ${addprefix ${MANDATORY_PATH}/, ${MANDATORY_FILES}}
+		norminette ${addprefix ${VPATH}/, ${MANDATORY_FILES}}
