@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/03 19:45:37 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 04:30:25 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,14 @@ void	free_mini_function(char **cmd, char *path)
 	free(cmd);
 }
 
-void	executor_path(t_parser *parser, char *envp[])
+void	executor_path(t_token *token, char *envp[])
 {
-	char	*path;
 	pid_t	pid;
 	int		status;
 
-	path = get_path(envp, parser->cmd[0][0]);
-	if (!path)
-		ft_printf("%s: command not found\n", parser->cmd[0][0]);
+	token->path = get_path(envp, token->cmd[0]);
+	if (!token->path)
+		ft_printf("%s: command not found\n", token->cmd[0]);
 	else
 	{
 		pid = fork();
@@ -59,7 +58,7 @@ void	executor_path(t_parser *parser, char *envp[])
 		else if (pid == 0)
 		{
 			handle_signal();
-			exeggcute(parser->cmd[0], path, envp);
+			exeggcute(token->cmd, token->path, envp);
 		}
 		else
 			wait(&status);
@@ -72,25 +71,25 @@ void	executor_path(t_parser *parser, char *envp[])
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(t_parser *parser, char *envp[])
+void	executor(t_token *token, char *envp[])
 {
 	char	*input;
 
-	input = parser->cmd[0][0];
-	if (!ft_strncmp(input, "echo", 4))
+	input = token->cmd[0];
+	if (!ft_strncmp(input, "echo", 5))
 		ft_echo(input);
-	else if (!ft_strncmp(input, "cd", 2))
+	else if (!ft_strncmp(input, "cd", 3))
 		ft_cd(input);
-	else if (!ft_strncmp(input, "pwd", 3))
+	else if (!ft_strncmp(input, "pwd", 4))
 		ft_pwd(input);
-	else if (!ft_strncmp(input, "export", 6))
+	else if (!ft_strncmp(input, "export", 7))
 		ft_export(input);
-	else if (!ft_strncmp(input, "unset", 5))
+	else if (!ft_strncmp(input, "unset", 6))
 		ft_unset(input);
-	else if (!ft_strncmp(input, "env", 3))
+	else if (!ft_strncmp(input, "env", 4))
 		ft_env(input);
-	else if (!ft_strncmp(input, "exit", 4))
+	else if (!ft_strncmp(input, "exit", 5))
 		ft_exit(input);
 	else
-		executor_path(parser, envp);
+		executor_path(token, envp);
 }
