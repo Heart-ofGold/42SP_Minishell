@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:18:01 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 21:23:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@
 int	testing_input(char *input, char *envp[])
 {
 	t_token		*tokens;
-//	char		*trimmed_input;
 
-//	trimmed_input = ft_strtrim(input, " \n\t");
 	tokens = lexer(input);
 	print_tokens(tokens);
 	tokens = parsing(tokens);
 	if (tokens->n_cmds != 0)
 		executor(tokens, envp);
-//	free(trimmed_input);
 	free(tokens);
 	return (0);
 }

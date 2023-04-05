@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:06:30 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 21:23:15 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_exit(t_token *token)
 		ft_clean_exit(EXIT_SUCCESS);
 	else
 	{
-		while(token->cmd[i])
+		while (token->cmd[i])
 		{
 			if (ft_isdigit_mod(token->cmd[i]))
 				ft_clean_exit(ft_atoi_mod(token->cmd[1]));
