@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:41:23 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 16:34:17 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/05 23:59:16 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_path(char *envp[], char *parser)
 	char	*cmd;
 
 	i = 0;
-	cmd = ft_strtrim_mod(parser, " ");
+	cmd = ft_strtrim_mod(ft_strdup(parser), " ");
 	if (cmd == NULL)
 		return (NULL);
 	while (ft_strncmp(envp[i], "PATH=", 5))
@@ -54,6 +54,7 @@ char	*get_path(char *envp[], char *parser)
 	possible_paths = ft_split(&envp[i][5], ':');
 	right_path = find_command(possible_paths, cmd);
 	ft_free_array(possible_paths);
+	free(cmd);
 	if (right_path == NULL)
 		return (NULL);
 	return (right_path);

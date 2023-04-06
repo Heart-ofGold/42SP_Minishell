@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 04:40:04 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/06 00:01:57 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_token	*parsing(t_token *token)
 	{
 		if (token->type == WORD)
 		{
-			printf("%s\n", token->value);
 			token->cmd = ft_split_pipex(token->value);
 			index++;
 		}
 		temp = temp->next_cmd;
 	}
+	free(temp);
 	return (token);
 }
