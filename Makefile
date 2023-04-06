@@ -110,7 +110,6 @@ $(OBJPATH)/%.o: $(VPATH)/%.c $(HEADER)
 mem:
 		$(VAL) ./$(NAME)
 
-
 #make clean -> remove objects
 clean:
 		@make clean -C $(LIBFT_PATH) --no-print-directory
