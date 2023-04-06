@@ -60,7 +60,7 @@ INCLUDE =	-I ./ -I $(LIBFT_PATH)
 CC =	gcc
 FLAGS =	-Wall -Werror -Wextra -g3
 GDB =	gdb
-VAL =	valgrind --leak-check=full --track-origins=yes
+VAL =	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 ## --trace-children=yes --track-fds=yes
 
 # clean
