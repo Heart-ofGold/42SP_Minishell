@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/05 04:11:53 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:23:17 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
 *@brief adds a new token to a linked list of tokens.
-*@param tokens is a pointer to a t_token pointer. It is used to keep track of 
+*@param tokens is a pointer to a t_token pointer. It is used to keep track of
 *the linked list of tokens.
-*@param token is a pointer to a t_token representing a new token to be added 
+*@param token is a pointer to a t_token representing a new token to be added
 *to the linked list.
 *@return none.
 */
@@ -44,9 +44,9 @@ t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token)
 }
 
 /**
-*@brief gets a pointer to an "input" character pointer. 
+*@brief gets a pointer to an "input" character pointer.
 *@param input
-*@return It returns a new character pointer containing the substring from the 
+*@return It returns a new character pointer containing the substring from the
 *beginning of the "input" string to the first separator or white space character
 */
 char	*get_value(char **input)
@@ -74,6 +74,7 @@ void	start_tokens(t_token **tokens)
 	(*tokens)->value = NULL;
 	(*tokens)->n_cmds = 0;
 	(*tokens)->n_redirection = 0;
+	(*tokens)->path = NULL;
 	(*tokens)->next_cmd = NULL;
 	(*tokens)->next_redirection = NULL;
 	(*tokens)->type = SEPARATOR;
@@ -96,7 +97,7 @@ int	is_symbol(char c)
 }
 
 /**
-*@brief This function is responsible for parsing an input string and creating a 
+*@brief This function is responsible for parsing an input string and creating a
 *linked list of tokens, where each token is represented by a t_token object.
 *@param input
 *@return returns a pointer to an object of type t_token
@@ -111,7 +112,7 @@ t_token	*lexer(char *input)
 	tmp = tokens;
 	holder = is_symbol(*input);
 	if (holder == SEPARATOR || holder == PIPE)
-		perror("bash: syntax error near unexpected token `|'");
+		perror("minishell: syntax error near unexpected token `|'");
 	while (*input)
 	{
 		holder = is_symbol(*input);

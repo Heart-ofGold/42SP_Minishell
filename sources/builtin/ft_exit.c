@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 23:58:34 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:25:02 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clean_exit(t_token *token, int status)
 {
-	ft_printf("Exiting...\n");
+	ft_printf("Goodbye, cadet\n");
 	ft_clean_mem(token);
 	rl_clear_history();
 	exit(status);
@@ -41,6 +41,7 @@ void	ft_exit(t_token *token)
 	int	i;
 
 	i = 1;
+	token->path = ft_strdup("minishell/path");
 	if (token->cmd[1] == NULL)
 		ft_clean_exit(token, EXIT_SUCCESS);
 	else
