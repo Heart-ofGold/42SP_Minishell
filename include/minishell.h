@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 20:39:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:41:54 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ int		is_separator(char c);
 
 // Builtin functions
 
-void	ft_env(char *input);
-void	ft_echo(char *input);
-void	ft_cd(char *input);
-void	ft_pwd(char *input);
-void	ft_export(char *input);
-void	ft_unset(char *input);
+void	ft_env(t_token *token, char **envp[]);
+void	ft_echo(t_token *token);
+void	ft_cd(t_token *token);
+void	ft_pwd(t_token *token);
+void	ft_export(t_token *token);
+void	ft_unset(t_token *token);
 void	ft_exit(t_token *token);
 
 // Executor

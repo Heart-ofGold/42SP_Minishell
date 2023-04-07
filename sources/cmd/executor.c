@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/05 23:58:56 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:41:35 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,17 @@ void	executor(t_token *token, char *envp[])
 
 	input = token->cmd[0];
 	if (!ft_strncmp(input, "echo", 5))
-		ft_echo(input);
+		ft_echo(token);
 	else if (!ft_strncmp(input, "cd", 3))
-		ft_cd(input);
+		ft_cd(token);
 	else if (!ft_strncmp(input, "pwd", 4))
-		ft_pwd(input);
+		ft_pwd(token);
 	else if (!ft_strncmp(input, "export", 7))
-		ft_export(input);
+		ft_export(token);
 	else if (!ft_strncmp(input, "unset", 6))
-		ft_unset(input);
+		ft_unset(token);
 	else if (!ft_strncmp(input, "env", 4))
-		ft_env(input);
+		ft_env(token, &envp);
 	else if (!ft_strncmp(input, "exit", 5))
 		ft_exit(token);
 	else
