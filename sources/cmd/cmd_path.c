@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:41:23 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 20:17:37 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:26:01 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,10 @@ static char	*find_command(char **possible_paths, char *cmd)
 
 char	*get_path(char *paths, char *parser)
 {
-	int		i;
 	char	**possible_paths;
 	char	*right_path;
 	char	*cmd;
 
-	i = 0;
 	cmd = ft_strtrim_mod(ft_strdup(parser), " ");
 	if (cmd == NULL)
 		return (NULL);
