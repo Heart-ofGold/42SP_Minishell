@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 22:41:54 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:55:08 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ typedef struct s_token
 	struct s_token	*next_redirection;	// pointer to the next token of type redirection
 }	t_token;
 
+/**
+ * @brief token structure
+ */
+typedef struct s_mini_env
+{
+	char				*name;
+	char				*value;
+	struct s_mini_env	*next;
+}	t_mini_env;
+
 // Functions
 
 // Signal
@@ -101,13 +111,14 @@ int		is_separator(char c);
 
 // Builtin functions
 
-void	ft_env(t_token *token, char **envp[]);
-void	ft_echo(t_token *token);
-void	ft_cd(t_token *token);
-void	ft_pwd(t_token *token);
-void	ft_export(t_token *token);
-void	ft_unset(t_token *token);
-void	ft_exit(t_token *token);
+void		ft_env(t_token *token, char **envp[]);
+void		ft_echo(t_token *token);
+void		ft_cd(t_token *token);
+void		ft_pwd(t_token *token);
+void		ft_export(t_token *token);
+void		ft_unset(t_token *token);
+void		ft_exit(t_token *token);
+t_mini_env	*set_env_mini(char *envp[]);
 
 // Executor
 
@@ -121,11 +132,13 @@ void	exit_error(void);
 
 // Cleaning
 
-void	ft_free_all(t_token *tokens);
 void	ft_clean_mem(t_token *tokens);
+void	ft_free_all(t_token *tokens);
+void	ft_free_env(t_mini_env	*env_mini);
 
 // Testing functions
 
 void	print_tokens(t_token *tokens);
+void	ft_print_test_env(t_mini_env *env_mini);
 
 #endif

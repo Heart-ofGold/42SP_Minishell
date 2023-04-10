@@ -25,6 +25,7 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 MANDATORY_FILES =	pearl/main.c \
 					pearl/signal_utils.c \
 					pearl/exit.c \
+					pearl/set_env.c \
 					errors/pearl_error.c \
 					cmd/cmd_path.c \
 					cmd/executor.c \

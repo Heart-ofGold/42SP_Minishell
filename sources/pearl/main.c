@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 00:01:20 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:56:20 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ void	mini_loop(char *envp[])
 */
 int	main(int argc, char *argv[], char *envp[])
 {
+	t_mini_env	*env_mini;
+
 	if (argv && argc > 1)
 	{
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	mini_loop(envp);
+	env_mini = set_env_mini(envp);
+//	mini_loop(envp);
+	ft_free_env(env_mini);
 	rl_clear_history();
 }
