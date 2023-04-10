@@ -6,18 +6,18 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:37:53 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 22:44:07 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:14:46 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //with no options
-void	ft_env(t_token *token, char **envp[])
+void	ft_env(t_token *token, t_mini_env *mini_env)
 {
-	int	i;
+	t_mini_env	*aux;
 
-	i = 0;
+	aux = mini_env;
 	token->path = ft_strdup("minishell/path");
 	if (token->cmd[1])
 	{
@@ -25,10 +25,10 @@ void	ft_env(t_token *token, char **envp[])
 	}
 	else
 	{
-		while (envp && *envp && envp[0][i])
+		while (aux->next)
 		{
-			ft_printf ("%s\n", envp[0][i]);
-			i++;
+			ft_printf ("%s=%s\n", aux->name, aux->value);
+			aux = aux->next;
 		}
 	}
 }

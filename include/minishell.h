@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 16:55:08 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:12:54 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
 char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
 t_token *normalize(t_token *token);
-t_token		*parsing(t_token *token);
-char		**ft_split_pipex(char *argument);
+t_token	*parsing(t_token *token);
+char	**ft_split_pipex(char *argument);
 
 // Utils
 
@@ -111,19 +111,23 @@ int		is_separator(char c);
 
 // Builtin functions
 
-void		ft_env(t_token *token, char **envp[]);
+void		ft_env(t_token *token, t_mini_env *envp);
 void		ft_echo(t_token *token);
 void		ft_cd(t_token *token);
 void		ft_pwd(t_token *token);
 void		ft_export(t_token *token);
 void		ft_unset(t_token *token);
 void		ft_exit(t_token *token);
-t_mini_env	*set_env_mini(char *envp[]);
+
+// Env functions
+
+t_mini_env	*set_mini_env(char *envp[]);
+char		**ft_mini_to_envp(t_mini_env *mini_env);
 
 // Executor
 
-char	*get_path(char *envp[], char *cmd);
-void	executor(t_token *token, char *envp[]);
+char	*get_path(char *paths, char *parser);
+void	executor(t_token *token, t_mini_env *envp, char *paths);
 
 // Errors
 
