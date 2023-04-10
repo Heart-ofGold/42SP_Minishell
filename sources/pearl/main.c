@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 00:01:20 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 13:56:58 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ int	testing_input(char *input, char *envp[])
 
 	tokens = lexer(input);
 	tokens = parsing(tokens);
+	print_tokens(tokens);
 	if (tokens->n_cmds != 0)
 		executor(tokens, envp);
 	ft_clean_mem(tokens);
 	return (0);
 }
-	// print_tokens(tokens);
 //	test_parser(parser);
 
 	/**

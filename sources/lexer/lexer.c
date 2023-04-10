@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/06 22:23:17 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:02:36 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,17 @@
 *to the linked list.
 *@return none.
 */
-t_token	*append_token(t_token *tokens, t_token *token, t_token *last_token)
+t_token	*append_token(t_token *head, t_token *token, t_token *last_token)
 {
 	t_token	*current;
 
-	current = tokens;
-	while (current->next_cmd != NULL && last_token->type != REDIRECT)
-		current = current->next_cmd;
-	while (last_token->type == REDIRECT && current->next_redirection != NULL)
-		current = current->next_redirection;
-	if (last_token->type == REDIRECT)
-	{
-		current->next_redirection = token;
-		tokens->n_redirection++;
-	}
-	else
-	{
-		current->next_cmd = token;
-		if (token->type == WORD)
-			tokens->n_cmds++;
-	}
+	current = head;
+	while (current->next_token != NULL && last_token->type != REDIRECT)
+		current = current->next_token;
+	current->next_token = token;
+	if (token->type == WORD && last_token->type != REDIRECT)
+		head->n_cmds++;
+	head->n_tokens++;
 	return (token);
 }
 
@@ -73,10 +64,9 @@ void	start_tokens(t_token **tokens)
 	*tokens = malloc(sizeof(t_token));
 	(*tokens)->value = NULL;
 	(*tokens)->n_cmds = 0;
-	(*tokens)->n_redirection = 0;
+	(*tokens)->n_tokens = 0;
 	(*tokens)->path = NULL;
-	(*tokens)->next_cmd = NULL;
-	(*tokens)->next_redirection = NULL;
+	(*tokens)->next_token = NULL;
 	(*tokens)->type = SEPARATOR;
 }
 

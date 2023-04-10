@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/06 00:00:14 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:10:29 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ t_token	*normalize(t_token *token)
 {
 	t_token	*tmp;
 
-	token->next_cmd->next_redirection = token->next_redirection;
-	tmp = token->next_cmd;
-	tmp->n_cmds = token->n_cmds;
-	tmp->n_redirection = token->n_redirection;
-	free(token);
-	return (tmp);
+	tmp = token;
+	token = token->next_token;
+	token->n_cmds = tmp->n_cmds;
+	token->n_tokens = tmp->n_tokens;
+	free(tmp);
+	return (token);
 }
