@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:06:49 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:38:08 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,6 @@ int	testing_input(char *input, t_mini_env *envp, char *paths)
 		executor(tokens, envp, paths);
 	ft_clean_mem(tokens);
 	return (0);
-}
-	// print_tokens(tokens);
-//	test_parser(parser);
-
-
-char	*find_path(t_mini_env *envp)
-{
-	t_mini_env	*temp;
-
-	temp = envp;
-	while (temp->next)
-	{
-		while (ft_strncmp(temp->name, "PATH=", 5))
-			temp = temp->next;
-		if (!ft_strncmp(temp->name, "PATH=", 5))
-			return (temp->value);
-	}
-	return (NULL);
 }
 
 	/**

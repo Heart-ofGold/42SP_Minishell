@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:12:54 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:38:49 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void		ft_exit(t_token *token);
 
 t_mini_env	*set_mini_env(char *envp[]);
 char		**ft_mini_to_envp(t_mini_env *mini_env);
+char		*find_path(t_mini_env *envp);
 
 // Executor
 

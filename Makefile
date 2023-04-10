@@ -26,6 +26,7 @@ MANDATORY_FILES =	pearl/main.c \
 					pearl/signal_utils.c \
 					pearl/exit.c \
 					pearl/set_env.c \
+					pearl/utils_main.c \
 					errors/pearl_error.c \
 					cmd/cmd_path.c \
 					cmd/executor.c \
