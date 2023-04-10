@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:38:08 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:49:49 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	testing_input(char *input, t_mini_env *envp, char *paths)
 
 	tokens = lexer(input);
 	tokens = parsing(tokens);
+	print_tokens(tokens);
 	if (tokens->n_cmds != 0)
 		executor(tokens, envp, paths);
 	ft_clean_mem(tokens);

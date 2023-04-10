@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 00:01:57 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:01:11 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ char	*ft_strdup_char(char c)
 t_token	*parsing(t_token *token)
 {
 	t_token		*temp;
+	t_type_t	last_type;
 	int			index;
 
 	index = 0;
 	temp = token;
+	last_type = SEPARATOR;
 	while (index < token->n_cmds)
 	{
-		if (token->type == WORD)
+		if (temp->type == WORD && last_type != REDIRECT)
 		{
-			token->cmd = ft_split_pipex(token->value);
+			temp->cmd = ft_split_pipex(temp->value);
 			index++;
 		}
-		temp = temp->next_cmd;
+		last_type = temp->type;
+		temp = temp->next_token;
 	}
 	free(temp);
 	return (token);
