@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 22:41:54 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:17:25 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,14 @@
 # define QUOTE 4 // uma aspas simples ou dupla
 # define WHITESPACE 5 // um espaço em branco
 
-
-
 // structs
 
 typedef enum e_type_token
 {
-	WORD , // uma palavra
-	PIPE , // um pipe "|"
-	REDIRECT , // um redirecionador "<" ou ">"
-	SEPARATOR , // um separador ";"
+	WORD,
+	PIPE,
+	REDIRECT,
+	SEPARATOR,
 }	t_type_t;
 
 /**
@@ -57,12 +55,11 @@ typedef struct s_token
 {
 	t_type_t		type;	// the token type, e.g. WORD, PIPE, REDIRECT
 	int				n_cmds;	// number of commands
-	int				n_redirection; // number of redirection
+	int				n_tokens; // number of tokens
 	char			*value; // the value of the token, eg "ls", ">", "file.txt"
 	char			**cmd;
 	char			*path;
-	struct s_token	*next_cmd;	// pointer to the next token of |
-	struct s_token	*next_redirection;	// pointer to the next token of type redirection
+	struct s_token	*next_token;	// pointer to the next token
 }	t_token;
 
 // Functions
