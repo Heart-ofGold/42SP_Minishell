@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:54:09 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 20:16:46 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:23:04 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ char	*append_mini_env(char *first, char *last)
 {
 	char	*temp;
 	char	*result;
-	int		len;
 
-	len = ft_strlen(first) + ft_strlen (last) + 1;
 	temp = ft_strjoin(first, "=");
 	result = ft_strjoin(temp, last);
 	free(temp);

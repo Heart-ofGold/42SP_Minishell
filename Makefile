@@ -60,7 +60,7 @@ INCLUDE =	-I ./ -I $(LIBFT_PATH)
 ################################################################################
 
 #compiling
-CC =	gcc
+CC =	cc
 FLAGS =	-Wall -Werror -Wextra -g3
 GDB =	gdb
 VAL =	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=memcheck --suppressions=readline.supp
