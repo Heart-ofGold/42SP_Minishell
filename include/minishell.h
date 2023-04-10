@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 14:17:25 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:13:50 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,16 @@ typedef struct s_token
 	struct s_token	*next_token;	// pointer to the next token
 }	t_token;
 
+/**
+ * @brief token structure
+ */
+typedef struct s_mini_env
+{
+	char				*name;
+	char				*value;
+	struct s_mini_env	*next;
+}	t_mini_env;
+
 // Functions
 
 // Signal
@@ -83,8 +93,8 @@ char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
 char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
 t_token *normalize(t_token *token);
-t_token		*parsing(t_token *token);
-char		**ft_split_pipex(char *argument);
+t_token	*parsing(t_token *token);
+char	**ft_split_pipex(char *argument);
 
 // Utils
 
@@ -98,31 +108,39 @@ int		is_separator(char c);
 
 // Builtin functions
 
-void	ft_env(t_token *token, char **envp[]);
+void	ft_env(t_token *token, t_mini_env *envp);
 void	ft_echo(t_token *token);
 void	ft_cd(t_token *token);
 void	ft_pwd(t_token *token);
 void	ft_export(t_token *token);
 void	ft_unset(t_token *token);
-void	ft_exit(t_token *token);
+void	ft_exit(t_token *token, t_mini_env *mini_env);
+
+// Env functions
+
+t_mini_env	*set_mini_env(char *envp[]);
+char		**ft_mini_to_envp(t_mini_env *mini_env);
+char		*find_path(t_mini_env *envp);
 
 // Executor
 
-char	*get_path(char *envp[], char *cmd);
-void	executor(t_token *token, char *envp[]);
+char	*get_path(char *paths, char *parser);
+void	executor(t_token *token, t_mini_env *envp, char *paths);
 
 // Errors
 
 void	if_cmd_error(char *message);
-void	exit_error(void);
+void	exit_error(t_mini_env *mini_env);
 
 // Cleaning
 
-void	ft_free_all(t_token *tokens);
 void	ft_clean_mem(t_token *tokens);
+void	ft_free_all(t_token *tokens);
+void	ft_free_env(t_mini_env	*mini_env);
 
 // Testing functions
 
 void	print_tokens(t_token *tokens);
+void	ft_print_test_env(t_mini_env *mini_env);
 
 #endif

@@ -25,6 +25,8 @@ LOG_SUC			:= printf "[$(CYAN)COMPILING_INFO$(RESET)] %s\n"
 MANDATORY_FILES =	pearl/main.c \
 					pearl/signal_utils.c \
 					pearl/exit.c \
+					pearl/set_env.c \
+					pearl/utils_main.c \
 					errors/pearl_error.c \
 					cmd/cmd_path.c \
 					cmd/executor.c \
@@ -58,7 +60,7 @@ INCLUDE =	-I ./ -I $(LIBFT_PATH)
 ################################################################################
 
 #compiling
-CC =	gcc
+CC =	cc
 FLAGS =	-Wall -Werror -Wextra -g3
 GDB =	gdb
 VAL =	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --tool=memcheck --suppressions=readline.supp

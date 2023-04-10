@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 13:56:58 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:13:01 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 *@param input the input sent after the prompt
 *@return none.
 */
-int	testing_input(char *input, char *envp[])
+int	testing_input(char *input, t_mini_env *envp, char *paths)
 {
 	t_token		*tokens;
 
@@ -25,32 +25,33 @@ int	testing_input(char *input, char *envp[])
 	tokens = parsing(tokens);
 	print_tokens(tokens);
 	if (tokens->n_cmds != 0)
-		executor(tokens, envp);
+		executor(tokens, envp, paths);
 	ft_clean_mem(tokens);
 	return (0);
 }
-//	test_parser(parser);
 
 	/**
 *@brief Loop for the minishell to start.
 *@param none
 *@return none.
 */
-void	mini_loop(char *envp[])
+void	mini_loop(t_mini_env *mini_env)
 {
 	char	*input;
+	char	*path;
 
 	while (1)
 	{
 		handle_signal();
 		input = readline(PROMPT);
 		if (!input)
-			exit_error();
+			exit_error(mini_env);
 		if (input)
 			add_history(input);
 		if (check_input(input))
 			continue ;
-		testing_input(input, envp);
+		path = find_path(mini_env);
+		testing_input(input, mini_env, path);
 		free(input);
 	}
 }
@@ -63,11 +64,15 @@ void	mini_loop(char *envp[])
 */
 int	main(int argc, char *argv[], char *envp[])
 {
+	t_mini_env	*mini_env;
+
 	if (argv && argc > 1)
 	{
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	mini_loop(envp);
+	mini_env = set_mini_env(envp);
+	mini_loop(mini_env);
+	ft_free_env(mini_env);
 	rl_clear_history();
 }
