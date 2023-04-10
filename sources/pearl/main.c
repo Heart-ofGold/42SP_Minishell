@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:49:49 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:13:01 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	mini_loop(t_mini_env *mini_env)
 		handle_signal();
 		input = readline(PROMPT);
 		if (!input)
-			exit_error();
+			exit_error(mini_env);
 		if (input)
 			add_history(input);
 		if (check_input(input))

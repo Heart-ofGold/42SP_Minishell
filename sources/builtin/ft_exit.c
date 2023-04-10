@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 22:25:02 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:15:31 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void	ft_exit_invalid(t_token *token, char **input, int status, int errorno)
 *@param input the input sent after the prompt
 *@return none.
 */
-void	ft_exit(t_token *token)
+void	ft_exit(t_token *token, t_mini_env *mini_env)
 {
 	int	i;
 
 	i = 1;
 	token->path = ft_strdup("minishell/path");
+	ft_free_env(mini_env);
 	if (token->cmd[1] == NULL)
 		ft_clean_exit(token, EXIT_SUCCESS);
 	else
@@ -57,15 +58,4 @@ void	ft_exit(t_token *token)
 			i++;
 		}
 	}
-}
-
-/**
-*@brief Function for exiting with failure.
-*@param none
-*@return none.
-*/
-void	exit_error(void)
-{
-	rl_clear_history();
-	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:12:24 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:57:35 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	exeggcute(char **cmd, char *path, t_mini_env *mini_env)
 	exit(check);
 }
 
-void	executor_path(t_token *token, t_mini_env *envp, char *paths)
+void	executor_path(t_token *token, t_mini_env *mini_env, char *paths)
 {
 	pid_t	pid;
 	int		status;
@@ -40,7 +40,7 @@ void	executor_path(t_token *token, t_mini_env *envp, char *paths)
 		else if (pid == 0)
 		{
 			handle_signal();
-			exeggcute(token->cmd, token->path, envp);
+			exeggcute(token->cmd, token->path, mini_env);
 		}
 		else
 			wait(&status);
@@ -52,7 +52,7 @@ void	executor_path(t_token *token, t_mini_env *envp, char *paths)
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(t_token *token, t_mini_env *envp, char *paths)
+void	executor(t_token *token, t_mini_env *mini_env, char *paths)
 {
 	char	*input;
 
@@ -68,9 +68,9 @@ void	executor(t_token *token, t_mini_env *envp, char *paths)
 	else if (!ft_strncmp(input, "unset", 6))
 		ft_unset(token);
 	else if (!ft_strncmp(input, "env", 4))
-		ft_env(token, envp);
+		ft_env(token, mini_env);
 	else if (!ft_strncmp(input, "exit", 5))
-		ft_exit(token);
+		ft_exit(token, mini_env);
 	else
-		executor_path(token, envp, paths);
+		executor_path(token, mini_env, paths);
 }

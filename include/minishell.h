@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:50:13 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:13:50 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,13 @@ int		is_separator(char c);
 
 // Builtin functions
 
-void		ft_env(t_token *token, t_mini_env *envp);
-void		ft_echo(t_token *token);
-void		ft_cd(t_token *token);
-void		ft_pwd(t_token *token);
-void		ft_export(t_token *token);
-void		ft_unset(t_token *token);
-void		ft_exit(t_token *token);
+void	ft_env(t_token *token, t_mini_env *envp);
+void	ft_echo(t_token *token);
+void	ft_cd(t_token *token);
+void	ft_pwd(t_token *token);
+void	ft_export(t_token *token);
+void	ft_unset(t_token *token);
+void	ft_exit(t_token *token, t_mini_env *mini_env);
 
 // Env functions
 
@@ -130,17 +130,17 @@ void	executor(t_token *token, t_mini_env *envp, char *paths);
 // Errors
 
 void	if_cmd_error(char *message);
-void	exit_error(void);
+void	exit_error(t_mini_env *mini_env);
 
 // Cleaning
 
 void	ft_clean_mem(t_token *tokens);
 void	ft_free_all(t_token *tokens);
-void	ft_free_env(t_mini_env	*env_mini);
+void	ft_free_env(t_mini_env	*mini_env);
 
 // Testing functions
 
 void	print_tokens(t_token *tokens);
-void	ft_print_test_env(t_mini_env *env_mini);
+void	ft_print_test_env(t_mini_env *mini_env);
 
 #endif

@@ -6,12 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:54:09 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:11:35 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:16:46 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 size_t	minienv_size(t_mini_env *mini_env)
 {
@@ -52,7 +51,7 @@ char	**ft_mini_to_envp(t_mini_env *mini_env)
 	envp = malloc(sizeof(char *) * (minienv_size(mini_env) + 1));
 	if (!envp)
 		return (NULL);
-	while(temp->next)
+	while (temp->next)
 	{
 		envp[i] = append_mini_env(temp->name, temp->value);
 		i++;
@@ -77,7 +76,7 @@ t_mini_env	*set_mini_env(char *envp[])
 	char		**temp;
 
 	start_env(&first);
-	mini_env =  first;
+	mini_env = first;
 	while (*envp)
 	{
 		temp = ft_split(*envp, '=');
@@ -92,5 +91,5 @@ t_mini_env	*set_mini_env(char *envp[])
 		}
 	}
 	mini_env->next = NULL;
-	return(first);
+	return (first);
 }

@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:50:17 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:17:25 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	print_tokens(t_token *tokens)
 		temp = temp->next_token;
 	}
 }
-
 
 void	ft_print_test_env(t_mini_env *env_mini)
 {

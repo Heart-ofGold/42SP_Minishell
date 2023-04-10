@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:41:23 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 17:18:30 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:17:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,16 @@ char	*get_path(char *paths, char *parser)
 	if (right_path == NULL)
 		return (NULL);
 	return (right_path);
+}
+
+char	*find_path(t_mini_env *envp)
+{
+	t_mini_env	*temp;
+
+	temp = envp;
+	while (ft_strncmp(temp->name, "PATH", 4))
+		temp = temp->next;
+	if (!ft_strncmp(temp->name, "PATH", 4))
+		return (temp->value);
+	return (NULL);
 }

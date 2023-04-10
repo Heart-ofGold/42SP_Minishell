@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 21:41:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/03/31 22:37:47 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/10 20:03:52 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ static void	sigint_handler_child(int sig)
 /**
 *@brief Handles the main signals for the minishell (first one tells that the
 *signal is ignored, the second one changes the signal behavior)
-*@signal SIGINT (ctrl + c) - close the program 
-*@signal SIGQUIT (crtl + \) - quit the program/SIG_IGN - tells thesignal is to 
+*@signal SIGINT (ctrl + c) - close the program
+*@signal SIGQUIT (crtl + \) - quit the program/SIG_IGN - tells thesignal is to
 *be ignored
 *@param none
 *@return none.
 */
-void	handle_signal(void)
-{
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
+//void	handle_signal(void)
+//{
+//	signal(SIGINT, sigint_handler);
+//	signal(SIGQUIT, SIG_IGN);
+//}
 
 void	handle_signal_child(void)
 {
@@ -56,17 +56,17 @@ void	handle_signal_child(void)
 }
 
 // function with sigaction instead of signal
-// void	handle_signal(void)
-// {
-// 	struct sigaction	sig_int;
-// 	struct sigaction	sig_quit;
+void	handle_signal(void)
+{
+	struct sigaction	sig_int;
+	struct sigaction	sig_quit;
 
-// 	sig_int.sa_handler = &sigint_handler;
-// 	sig_int.sa_flags = 0;
-// 	sigemptyset(&sig_int.sa_mask);
-// 	sigaction(SIGINT, &sig_int, NULL);
-// 	sig_quit.sa_handler = SIG_IGN;
-// 	sig_quit.sa_flags = 0;
-// 	sigemptyset(&sig_quit.sa_mask);
-// 	sigaction(SIGQUIT, &sig_quit, NULL);
-// }
+	sig_int.sa_handler = &sigint_handler;
+	sig_int.sa_flags = 0;
+	sigemptyset(&sig_int.sa_mask);
+	sigaction(SIGINT, &sig_int, NULL);
+	sig_quit.sa_handler = SIG_IGN;
+	sig_quit.sa_flags = 0;
+	sigemptyset(&sig_quit.sa_mask);
+	sigaction(SIGQUIT, &sig_quit, NULL);
+}
