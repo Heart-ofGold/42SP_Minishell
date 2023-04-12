@@ -6,54 +6,65 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/10 14:10:29 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:48:57 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-char	*when_quotes(t_token	*tokens, t_token **tmp, char *input)
+char	*when_quotes(t_global *g, t_token **tmp, char *input)
 {
 	char	*value;
 
 	value = NULL;
 	value = ft_strchr(input + 1, *input);
-	*tmp = append_token(tokens, n_token(input, WORD, value - input + 1),*tmp);
+	*tmp = append_token(g, n_token(input, WORD, value - input + 1),*tmp);
 	return (input + ft_strlen((*tmp)->value));
 }
 
-char	*when_redirect(t_token *tokens, t_token **tmp, char *input)
+char	*when_redirect(t_global *g, t_token **tmp, char *input)
 {
 	if (input[1] == *input)
-		*tmp = append_token(tokens, n_token(input, WORD, 2), *tmp);
+		*tmp = append_token(g, n_token(input, REDIRECT, 2), *tmp);
 	else
 	{
-		*tmp = append_token(tokens, n_token(input, WORD, 1), *tmp);
+		*tmp = append_token(g, n_token(input, REDIRECT, 1), *tmp);
 	}
 	return (input + ft_strlen((*tmp)->value));
 }
 
-char	*when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int holder)
+char	*when_sep_pipe(t_global *g, t_token **tmp, char *input, int holder)
 {
-	*tmp = append_token(tokens, n_token(input, holder, 1), *tmp);
+	*tmp = append_token(g, n_token(input, holder, 1), *tmp);
 	input++;
 	return (input);
 }
 
-char	*when_word(t_token *tokens, t_token **tmp, char *input)
+char	*when_word(t_global *g, t_token **tmp, char *input)
 {
-	*tmp = append_token(tokens, get_next_token(input, 0), *tmp);
+	*tmp = append_token(g, get_next_token(input, 0), *tmp);
 	return (input + ft_strlen((*tmp)->value));
 }
 
-t_token	*normalize(t_token *token)
+void	normalize(t_global *g)
 {
 	t_token	*tmp;
 
-	tmp = token;
-	token = token->next_token;
-	token->n_cmds = tmp->n_cmds;
-	token->n_tokens = tmp->n_tokens;
+	tmp = g->head_token;
+	g->head_token = g->head_token->next_token;
+	g->head_token->n_cmds = tmp->n_cmds;
+	g->head_token->n_tokens = tmp->n_tokens;
 	free(tmp);
-	return (token);
+	if (g->exit_status != 0)
+		return (error_handler(g));
+	tmp = g->head_token;
+	while (tmp->next_token != NULL)
+		tmp = tmp->next_token;
+	if (tmp->type == REDIRECT || tmp->type == PIPE)
+	{
+		g->exit_status = 2;
+		free(tmp->value);
+		tmp->value = ft_strdup("newline");
+		return (error_handler(g));
+	}
 }

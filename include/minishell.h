@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 20:13:50 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/12 12:52:16 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,13 @@ typedef struct s_mini_env
 	struct s_mini_env	*next;
 }	t_mini_env;
 
+typedef struct s_global
+{
+	t_token			*head_token;
+	t_mini_env		*mini_env;
+	int 			exit_status;
+}	t_global;
+
 // Functions
 
 // Signal
@@ -81,20 +88,22 @@ void	handle_signal_child(void);
 
 // Lexer
 
-t_token	*lexer(char *input);
+void	lexer(char *input, t_global *g);
 t_token	*create_redirect_token(char c, int pos);
 t_token	*create_pipe_token(int pos);
 t_token	*create_word_token(char *input, int start_pos, int end_pos);
 t_token	*n_token(char *value, int type, int size);
 t_token	*get_next_token(char *input, int end_pos);
-t_token *append_token(t_token *tokens, t_token *token, t_token *last_token);
-char *	when_word(t_token *tokens, t_token **tmp, char *input);
-char *	when_sep_pipe(t_token *tokens, t_token **tmp, char *input, int	holder);
-char *	when_redirect(t_token *tokens, t_token **tmp, char *input);
-char *	when_quotes(t_token	*tokens, t_token **tmp, char *input);
-t_token *normalize(t_token *token);
-t_token	*parsing(t_token *token);
+t_token	*append_token(t_global *g, t_token *token, t_token *last_token);
+char *	when_word(t_global *g, t_token **tmp, char *input);
+char *	when_sep_pipe(t_global *g, t_token **tmp, char *input, int	holder);
+char *	when_redirect(t_global *g, t_token **tmp, char *input);
+char *	when_quotes(t_global *g, t_token **tmp, char *input);
+void 	normalize(t_global *g);
+t_token	*parsing(t_token *tokens);
 char	**ft_split_pipex(char *argument);
+void error_handler(t_global *g);
+int verify_unexpecte_token(t_token *current_token, t_token *last_token);
 
 // Utils
 
@@ -131,6 +140,7 @@ void	executor(t_token *token, t_mini_env *envp, char *paths);
 
 void	if_cmd_error(char *message);
 void	exit_error(t_mini_env *mini_env);
+void	error_handler(t_global *g);
 
 // Cleaning
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 20:13:01 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/11 13:35:50 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 *@param input the input sent after the prompt
 *@return none.
 */
-int	testing_input(char *input, t_mini_env *envp, char *paths)
+int	testing_input(char *input, t_global *g, char *paths)
 {
-	t_token		*tokens;
-
-	tokens = lexer(input);
-	tokens = parsing(tokens);
-	print_tokens(tokens);
-	if (tokens->n_cmds != 0)
-		executor(tokens, envp, paths);
-	ft_clean_mem(tokens);
+	lexer(input, g);
+	if (g->exit_status != 0)
+		return (g->exit_status);
+	g->head_token = parsing(g->head_token);
+	print_tokens(g->head_token);
+	if (g->head_token->n_cmds != 0)
+		executor(g->head_token, g->mini_env, paths);
+	ft_clean_mem(g->head_token);
 	return (0);
 }
 
@@ -35,7 +35,7 @@ int	testing_input(char *input, t_mini_env *envp, char *paths)
 *@param none
 *@return none.
 */
-void	mini_loop(t_mini_env *mini_env)
+void	mini_loop(t_global *g)
 {
 	char	*input;
 	char	*path;
@@ -43,15 +43,16 @@ void	mini_loop(t_mini_env *mini_env)
 	while (1)
 	{
 		handle_signal();
+		g->exit_status = 0;
 		input = readline(PROMPT);
 		if (!input)
-			exit_error(mini_env);
+			exit_error(g->mini_env);
 		if (input)
 			add_history(input);
 		if (check_input(input))
 			continue ;
-		path = find_path(mini_env);
-		testing_input(input, mini_env, path);
+		path = find_path(g->mini_env);
+		testing_input(input, g, path);
 		free(input);
 	}
 }
@@ -64,15 +65,15 @@ void	mini_loop(t_mini_env *mini_env)
 */
 int	main(int argc, char *argv[], char *envp[])
 {
-	t_mini_env	*mini_env;
+	t_global	g;
 
 	if (argv && argc > 1)
 	{
 		ft_printf("Error: Too many arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	mini_env = set_mini_env(envp);
-	mini_loop(mini_env);
-	ft_free_env(mini_env);
+	g.mini_env = set_mini_env(envp);
+	mini_loop(&g);
+	ft_free_env(g.mini_env);
 	rl_clear_history();
 }
