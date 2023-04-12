@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pearl_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/02 16:33:51 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:12:36 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,23 @@ int	check_input(char *input)
 	else if (check_quotes(input))
 		check = TRUE;
 	return (check);
+}
+
+void	error_handler(t_global *g)
+{
+	t_token	*tmp;
+	char	*error;
+
+	tmp = g->head_token;
+	while (tmp)
+	{
+		error = tmp->value;
+		if (tmp->next_token == NULL)
+			break ;
+		free(tmp->value);
+		tmp = tmp->next_token;
+	}
+	ft_printf("minishell: syntax error near unexpected token `%s'\n", error);
+	free(error);
+	g->head_token = NULL;
 }

@@ -6,76 +6,11 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/10 13:49:49 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:05:42 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-/**
-*@brief creates a token of type REDIRECT with value equal to c and initial and
-*final position equal to pos
-*@param c one character
-*@param pos a position
-*@return a token of type REDIRECT
-*/
-// t_token	*create_redirect_token(char c, int pos)
-// {
-// 	t_token	*token;
-
-// 	token = malloc(sizeof(t_token));
-// 	token->type = REDIRECT;
-// 	token->value = malloc(2 * sizeof(char));
-// 	token->value[0] = c;
-// 	token->value[1] = '\0';
-// 	token->start_pos = pos;
-// 	token->end_pos = pos;
-// 	return (token);
-// }
-
-/**
-*@brief creates a token of type PIPE with value equal to "|" and initial and
-*final position equal to pos
-*@param pos
-*@return a token of type PIPE
-*/
-// t_token	*create_pipe_token(int pos)
-// {
-// 	t_token	*token;
-
-// 	token = malloc(sizeof(t_token));
-// 	token->type = PIPE;
-// 	token->value = malloc(2 * sizeof(char));
-// 	token->value[0] = '|';
-// 	token->value[1] = '\0';
-// 	token->start_pos = pos;
-// 	token->end_pos = pos;
-// 	return (token);
-// }
-
-/**
-*@brief takes the input string and two positions: start_pos and end_pos. Creates
-*a WORD type token with a value equal to the subset of the input string starting
-*at start_pos and ending at end_pos
-*@param input
-*@param start_pos
-*@param end_pos
-*@return a token with type WORD, value equal to the sub-char of the input
-*between the positions of start_pos and end_pos
-*/
-// t_token	*create_word_token(char *input, int start_pos, int end_pos)
-// {
-// 	t_token	*token;
-
-// 	token = malloc(sizeof(t_token));
-// 	token->type = WORD;
-// 	token->value = malloc((end_pos - start_pos + 2) * sizeof(char));
-// 	strncpy(token->value, &input[start_pos], end_pos - start_pos + 1);
-// 	token->value[end_pos - start_pos + 1] = '\0';
-// 	token->start_pos = start_pos;
-// 	token->end_pos = end_pos;
-// 	return (token);
-// }
 
 /**
 *@brief cover the input string from position pos until it finds a separator
@@ -121,7 +56,27 @@ t_token	*n_token(char *value, int type, int size)
 	token->n_cmds = 0;
 	token->n_tokens = 0;
 	token->type = type;
-	token->value = ft_substr(value, 0, size + 1);
+	token->value = ft_substr(value, 0, size);
 	token->next_token = NULL;
 	return (token);
+}
+
+int	verify_unexpecte_token(t_token *current_token, t_token *last_token)
+{
+	if (current_token->type == PIPE && last_token->type == SEPARATOR)
+		return (2);
+	else if (current_token->type == PIPE && last_token->type == PIPE)
+		return (2);
+	else if (current_token->type == REDIRECT && last_token->type == REDIRECT)
+		return (2);
+	else if (current_token->type == PIPE && last_token->type == REDIRECT)
+		return (2);
+	else if (current_token->type == SEPARATOR && last_token->type == REDIRECT)
+		return (2);
+	else if (current_token->type == SEPARATOR && last_token->type == PIPE)
+		return (2);
+	else if (current_token->type == SEPARATOR && last_token->type == SEPARATOR)
+		return (2);
+	else
+		return (0);
 }
