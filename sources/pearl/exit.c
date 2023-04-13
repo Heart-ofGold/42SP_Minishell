@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 20:30:15 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 11:35:13 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:32:01 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,15 @@ void	ft_free_all(t_token *tokens)
 
 void	ft_free_env(t_mini_env	*env_mini)
 {
+	t_mini_env	*aux;
+
 	while (env_mini->next)
 	{
+		aux = env_mini;
 		free_ptr((void **)&env_mini->value);
 		free_ptr((void **)&env_mini->name);
-		free_ptr((void **)&env_mini);
 		env_mini = env_mini->next;
+		free_ptr((void **)&aux);
 	}
 	free_ptr((void **)&env_mini->value);
 	free_ptr((void **)&env_mini->name);
@@ -69,6 +72,7 @@ void	ft_clean_mem(t_token *tokens)
 */
 void	exit_error(t_mini_env *mini_env)
 {
+	ft_printf("Goodbye, cadet!\n");
 	ft_free_env(mini_env);
 	rl_clear_history();
 	exit(EXIT_FAILURE);

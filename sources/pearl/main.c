@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/12 18:19:45 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:31:43 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ int	testing_input(char *input, t_global *g, char *paths)
 	if (g->exit_status != 0)
 		return (g->exit_status);
 	g->head_token = parsing(g->head_token, g);
-	print_tokens(g->head_token);
 	if (g->head_token->n_cmds != 0)
 		executor(g->head_token, g->mini_env, paths);
 	ft_clean_mem(g->head_token);
 	return (0);
 }
+//	print_tokens(g->head_token);
 
-	/**
+/**
 *@brief Loop for the minishell to start.
 *@param none
 *@return none.
@@ -75,6 +75,7 @@ int	main(int argc, char *argv[], char *envp[])
 		return (EXIT_FAILURE);
 	}
 	g.mini_env = set_mini_env(envp);
+	ft_printf("Welcome to Minishell!\n");
 	mini_loop(&g);
 	ft_free_env(g.mini_env);
 	rl_clear_history();
