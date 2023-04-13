@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 20:15:31 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:23:48 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_clean_exit(t_token *token, int status)
 {
-	ft_printf("Goodbye, cadet\n");
+	ft_printf("Goodbye, cadet!\n");
 	ft_clean_mem(token);
 	rl_clear_history();
 	exit(status);
