@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/19 19:01:35 by feralves          #+#    #+#             */
-/*   Updated: 2023/02/26 19:24:30 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/12 23:19:48 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strdup(const char *s)
 	int		count;
 
 	count = 0;
-	duplicate = malloc(ft_strlen(s) * sizeof(*duplicate) + 1);
+	duplicate = malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!duplicate)
 		return (NULL);
 	while (*s)

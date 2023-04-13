@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/11 13:35:50 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/12 18:19:45 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	testing_input(char *input, t_global *g, char *paths)
 	lexer(input, g);
 	if (g->exit_status != 0)
 		return (g->exit_status);
-	g->head_token = parsing(g->head_token);
+	g->head_token = parsing(g->head_token, g);
 	print_tokens(g->head_token);
 	if (g->head_token->n_cmds != 0)
 		executor(g->head_token, g->mini_env, paths);
@@ -40,9 +40,11 @@ void	mini_loop(t_global *g)
 	char	*input;
 	char	*path;
 
+	g->exit_status = 0;
 	while (1)
 	{
 		handle_signal();
+		g->last_status = g->exit_status;
 		g->exit_status = 0;
 		input = readline(PROMPT);
 		if (!input)
