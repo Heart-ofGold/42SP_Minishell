@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 16:24:18 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:56:57 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	ft_exit(t_token *token, t_mini_env *mini_env);
 
 // Env functions
 
+void		start_env(t_mini_env **envp);
 t_mini_env	*set_mini_env(char *envp[]);
 char		**ft_mini_to_envp(t_mini_env *mini_env);
 char		*find_path(t_mini_env *envp);
