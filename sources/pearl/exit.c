@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 20:30:15 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 13:28:59 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:32:01 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_free_all(t_token *tokens)
 void	ft_free_env(t_mini_env	*env_mini)
 {
 	t_mini_env	*aux;
-	
+
 	while (env_mini->next)
 	{
 		aux = env_mini;

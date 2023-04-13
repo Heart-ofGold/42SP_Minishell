@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:54:09 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 13:12:03 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/13 13:34:32 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,21 @@ t_mini_env	*set_mini_env(char *envp[])
 	t_mini_env	*mini_env;
 	t_mini_env	*first;
 	char		**temp;
-	int	i = 0;
+	int			i;
 
+	i = 0;
 	start_env(&first);
 	mini_env = first;
 	while (envp[i])
 	{
-		temp = ft_split(envp[i], '=');
+		temp = ft_split(envp[i++], '=');
 		mini_env->name = ft_strdup(temp[0]);
 		if (temp[1])
 			mini_env->value = ft_strdup(temp[1]);
 		else
 			mini_env->value = ft_strdup("");
-		envp++;
 		ft_free_array(temp);
-		if (*envp)
+		if (envp[i])
 		{
 			start_env(&mini_env->next);
 			mini_env = mini_env->next;
