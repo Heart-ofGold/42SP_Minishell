@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/12 13:12:36 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:36:40 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,23 @@
 int	check_quotes(char *argument)
 {
 	int		index;
-	int		counter_1;
-	int		counter_2;
+	char	quote;
 
-	counter_1 = 0;
-	counter_2 = 0;
 	index = 0;
 	while (argument[index])
 	{
-		if (argument[index] == '\'')
-			counter_1++;
-		else if (argument[index] == '\"')
-			counter_2++;
+		if (argument[index] == '\'' || argument[index] == '\"')
+		{
+			quote = argument[index];
+			while (argument[index] && argument[index] != quote)
+				index++;
+			if (argument[index] != quote)
+			{
+				ft_putendl_fd("Error: Unmatched quotes.", 2);
+				return (-1);
+			}
+		}
 		index++;
-	}
-	if (counter_1 % 2 != 0 || counter_2 % 2 != 0)
-	{
-		ft_putendl_fd("Error: Unmatched quotes.", 2);
-		return (-1);
 	}
 	return (0);
 }

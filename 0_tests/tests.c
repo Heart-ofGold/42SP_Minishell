@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 17:39:33 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/11 13:27:56 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:23:24 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,19 @@
 void	print_tokens(t_token *tokens)
 {
 	t_token	*temp;
+	int		i;
 
 	temp = tokens;
 	while (temp)
 	{
-		ft_printf("[%d] %s\n", temp->type, temp->value);
+		i = 0;
+		ft_printf("%s = ", temp->value);
+		while (temp->cmd[i])
+		{
+			ft_printf("[%s]", temp->cmd[i]);
+			i++;
+		}
+		ft_printf("\n");
 		temp = temp->next_token;
 	}
 }

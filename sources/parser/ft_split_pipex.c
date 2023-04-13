@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 22:24:46 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/04 22:30:09 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:38:50 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,41 +37,31 @@ static char	ft_expander(char *argument, char previous, char after)
 	return (value);
 }
 
-static void	ft_reswitch(char **cmd)
+static void	ft_reswitch(char **cmd, t_global *g)
 {
-	int		pos;
 	char	*temp;
+	int		pos;
+	int		i;
 
 	pos = 0;
 	while (cmd[pos])
 	{
 		ft_expander(cmd[pos], TEMP_SPACE, ' ');
-		temp = ft_strtrim(cmd[pos], "\'\"");
-		free(cmd[pos]);
-		cmd[pos] = temp;
+		if (ft_strchr(cmd[pos], '$') && cmd[pos][0] != '\'')
+		{
+			i = 0;
+			while (ft_strchr(&cmd[pos][i], '$') && cmd[pos][i] != '\0' )
+			{
+				temp = get_key(cmd[pos], i, g);
+				cmd[pos] = temp;
+				i++;
+			}
+		}
 		pos++;
 	}
 }
 
-static int	check_quotes(char *argument)
-{
-	int		index;
-	int		counter;
-
-	counter = 0;
-	index = 0;
-	while (argument[index])
-	{
-		if (argument[index] == '\'' || argument[index] == '\"')
-			counter++;
-		index++;
-	}
-	if (counter % 2 != 0)
-		return (-1);
-	return (0);
-}
-
-char	**ft_split_pipex(char *argument)
+char	**ft_split_pipex(char *argument, t_global *g)
 {
 	char	**cmd;
 
@@ -79,6 +69,6 @@ char	**ft_split_pipex(char *argument)
 		return (NULL);
 	ft_expander(argument, ' ', TEMP_SPACE);
 	cmd = ft_split(argument, ' ');
-	ft_reswitch(cmd);
+	ft_reswitch(cmd, g);
 	return (cmd);
 }

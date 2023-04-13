@@ -108,7 +108,7 @@ OBJ_GNL = $(GNL_FILES:%.c=$(OBJPATH)/%.o)
 OBJ_PRINTF = $(PRINTF_FILES:%.c=$(OBJPATH)/%.o)
 
 #for compliling
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -g3
 
 GDB = gdb
 VAL = valgrind --trace-children=yes --leak-check=full --track-origins=yes ./$(NAME)

@@ -44,6 +44,7 @@ MANDATORY_FILES =	pearl/main.c \
 					parser/parser.c \
 					parser/ft_split_pipex.c \
 					parser/utils_parser.c \
+					parser/utils_tokenization_treatment.c \
 					../0_tests/tests.c \
 
 #directories

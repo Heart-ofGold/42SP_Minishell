@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/10 19:57:35 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:50:38 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	executor(t_token *token, t_mini_env *mini_env, char *paths)
 	if (!ft_strncmp(input, "echo", 5))
 		ft_echo(token);
 	else if (!ft_strncmp(input, "cd", 3))
-		ft_cd(token);
+		ft_cd(mini_env, token);
 	else if (!ft_strncmp(input, "pwd", 4))
 		ft_pwd(token);
 	else if (!ft_strncmp(input, "export", 7))

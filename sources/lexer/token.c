@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:29:53 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/12 13:05:42 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/12 23:01:24 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ t_token	*n_token(char *value, int type, int size)
 	token->type = type;
 	token->value = ft_substr(value, 0, size);
 	token->next_token = NULL;
+	token->path = NULL;
+	token->cmd = NULL;
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 16:31:27 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/11 12:54:38 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:37:17 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*ft_strdup_char(char c)
 // 	return (parser);
 // }
 
-t_token	*parsing(t_token *token)
+t_token	*parsing(t_token *token, t_global *g)
 {
 	t_token		*temp;
 	t_type_t	last_type;
@@ -61,7 +61,7 @@ t_token	*parsing(t_token *token)
 	{
 		if (temp->type == WORD && last_type != REDIRECT)
 		{
-			temp->cmd = ft_split_pipex(temp->value);
+			temp->cmd = ft_split_pipex(temp->value, g);
 			index++;
 		}
 		last_type = temp->type;

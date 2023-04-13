@@ -6,7 +6,7 @@
 /*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/12 12:52:16 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/13 11:29:44 by mcarecho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // Non-native libraries
 
 # include "libft/libft.h"
-# include "pipex.h"
+
 
 // Define
 
@@ -37,6 +37,8 @@
 # define FALSE 0
 # define QUOTE 4 // uma aspas simples ou dupla
 # define WHITESPACE 5 // um espaço em branco
+# define CHARS_WHITESPACES " \t\n"
+# define TEMP_SPACE 1
 
 // structs
 
@@ -57,7 +59,7 @@ typedef struct s_token
 	int				n_cmds;	// number of commands
 	int				n_tokens; // number of tokens
 	char			*value; // the value of the token, eg "ls", ">", "file.txt"
-	char			**cmd;
+	char			**cmd; //the command split by spaces and parsed
 	char			*path;
 	struct s_token	*next_token;	// pointer to the next token
 }	t_token;
@@ -77,6 +79,7 @@ typedef struct s_global
 	t_token			*head_token;
 	t_mini_env		*mini_env;
 	int 			exit_status;
+	int				last_status;
 }	t_global;
 
 // Functions
@@ -100,10 +103,10 @@ char *	when_sep_pipe(t_global *g, t_token **tmp, char *input, int	holder);
 char *	when_redirect(t_global *g, t_token **tmp, char *input);
 char *	when_quotes(t_global *g, t_token **tmp, char *input);
 void 	normalize(t_global *g);
-t_token	*parsing(t_token *tokens);
-char	**ft_split_pipex(char *argument);
-void error_handler(t_global *g);
-int verify_unexpecte_token(t_token *current_token, t_token *last_token);
+t_token	*parsing(t_token *token, t_global *g);
+char	**ft_split_pipex(char *argument, t_global *g);
+
+int 	verify_unexpecte_token(t_token *current_token, t_token *last_token);
 
 // Utils
 
@@ -114,12 +117,19 @@ int		is_quote(char c);
 int		is_whitespace(char c);
 int		is_pipe(char c);
 int		is_separator(char c);
+int		check_quotes(char *argument);
+char	*get_env(t_mini_env *env, char *key);
+void	error_handler(t_global *g);
+char 	*get_env(t_mini_env *env, char *key);
+char 	*get_key(char *word, int a, t_global *g);
+char 	*sub_error_n(char *str, char *key, int a, t_global *g);
+char 	*is_key(char *key, char *str, int a, t_global *g);
 
 // Builtin functions
 
 void	ft_env(t_token *token, t_mini_env *envp);
 void	ft_echo(t_token *token);
-void	ft_cd(t_token *token);
+void	ft_cd(t_mini_env *env, t_token *token);
 void	ft_pwd(t_token *token);
 void	ft_export(t_token *token);
 void	ft_unset(t_token *token);
