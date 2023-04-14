@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 21:03:21 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/14 21:52:00 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	executor(t_global *g, t_token *token, t_mini_env *mini_env, char *paths)
 	else if (!ft_strncmp(input, "export", 7))
 		ft_export(token, mini_env);
 	else if (!ft_strncmp(input, "unset", 6))
-		ft_unset(token);
+		ft_unset(g);
 	else if (!ft_strncmp(input, "env", 4))
 		ft_env(token, mini_env);
 	else if (!ft_strncmp(input, "exit", 5))
