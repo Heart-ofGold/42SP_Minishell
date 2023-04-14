@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:10:34 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 13:31:43 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/14 21:03:33 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	testing_input(char *input, t_global *g, char *paths)
 		return (g->exit_status);
 	g->head_token = parsing(g->head_token, g);
 	if (g->head_token->n_cmds != 0)
-		executor(g->head_token, g->mini_env, paths);
+		executor(g, g->head_token, g->mini_env, paths);
 	ft_clean_mem(g->head_token);
 	return (0);
 }
