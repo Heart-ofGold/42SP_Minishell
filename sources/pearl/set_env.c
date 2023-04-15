@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 16:54:09 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 17:21:05 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:56:19 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ char	**ft_mini_to_envp(t_mini_env *mini_env)
 		i++;
 		temp = temp->next;
 	}
+	envp[i] = append_mini_env(temp->name, temp->value);
+	i++;
 	envp[i] = NULL;
 	return (envp);
 }
