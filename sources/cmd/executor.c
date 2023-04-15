@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/12 22:50:38 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/14 21:03:21 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	executor_path(t_token *token, t_mini_env *mini_env, char *paths)
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(t_token *token, t_mini_env *mini_env, char *paths)
+void	executor(t_global *g, t_token *token, t_mini_env *mini_env, char *paths)
 {
 	char	*input;
 
@@ -62,9 +62,9 @@ void	executor(t_token *token, t_mini_env *mini_env, char *paths)
 	else if (!ft_strncmp(input, "cd", 3))
 		ft_cd(mini_env, token);
 	else if (!ft_strncmp(input, "pwd", 4))
-		ft_pwd(token);
+		ft_pwd(g);
 	else if (!ft_strncmp(input, "export", 7))
-		ft_export(token);
+		ft_export(token, mini_env);
 	else if (!ft_strncmp(input, "unset", 6))
 		ft_unset(token);
 	else if (!ft_strncmp(input, "env", 4))
