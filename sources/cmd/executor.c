@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 21:52:00 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:34:37 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	executor(t_global *g, t_token *token, t_mini_env *mini_env, char *paths)
 
 	input = token->cmd[0];
 	if (!ft_strncmp(input, "echo", 5))
-		ft_echo(token);
+		ft_echo(g);
 	else if (!ft_strncmp(input, "cd", 3))
 		ft_cd(mini_env, token);
 	else if (!ft_strncmp(input, "pwd", 4))

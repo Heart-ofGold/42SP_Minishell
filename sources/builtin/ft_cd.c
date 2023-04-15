@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:59:15 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 11:37:04 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:29:54 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,4 @@ void	ft_cd(t_mini_env *env, t_token *token)
 		return ;
 	}
 	chdir(token->cmd[1]);
-	ft_printf("%s\n", getcwd(NULL, 0));
 }
