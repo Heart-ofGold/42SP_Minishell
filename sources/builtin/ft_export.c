@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:00:42 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 20:59:55 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/14 22:50:40 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void	ft_export(t_token *token, t_mini_env *mini_env)
 		if (!ft_strncmp(command[0], aux->name, ft_strlen(command[0])))
 			return (ft_change_value(&aux, command[1]));
 		append_env(&aux, command[0], command[1]);
+		ft_free_array(command);
 	}
 }
