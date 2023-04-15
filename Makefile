@@ -26,8 +26,6 @@ MANDATORY_FILES =	pearl/main.c \
 					pearl/signal_utils.c \
 					pearl/exit.c \
 					pearl/set_env.c \
-					pearl/utils_main.c \
-					errors/pearl_error.c \
 					cmd/cmd_path.c \
 					cmd/executor.c \
 					builtin/ft_echo.c \
@@ -37,14 +35,15 @@ MANDATORY_FILES =	pearl/main.c \
 					builtin/ft_unset.c \
 					builtin/ft_env.c \
 					builtin/ft_exit.c \
+					builtin/export_check.c \
 					lexer/lexer.c \
 					lexer/token.c \
-					lexer/utils_token.c \
-					lexer/utils_lexer.c \
+					lexer/check_symbol.c \
+					lexer/normalize_lexer.c \
 					parser/parser.c \
-					parser/ft_split_pipex.c \
-					parser/utils_parser.c \
-					parser/utils_tokenization_treatment.c \
+					parser/split_mini.c \
+					parser/tokenization_treatment.c \
+					errors/pearl_error.c \
 					../0_tests/tests.c \
 
 #directories

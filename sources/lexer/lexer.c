@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 06:47:39 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/12 13:11:46 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ t_token	*append_token(t_global *g, t_token *token, t_token *last_token)
 {
 	t_token	*current;
 
-	current = g->head_token;
+	current = g->h_token;
 	while (current->next_token != NULL && last_token->type != REDIRECT)
 		current = current->next_token;
 	current->next_token = token;
 	if (token->type == WORD && last_token->type != REDIRECT)
-		g->head_token->n_cmds++;
+		g->h_token->n_cmds++;
 	g->exit_status = verify_unexpecte_token(token, last_token);
-	g->head_token->n_tokens++;
+	g->h_token->n_tokens++;
 	return (token);
 }
 
@@ -98,8 +98,8 @@ void	lexer(char *input, t_global *g)
 	t_token	*tmp;
 	int		holder;
 
-	start_tokens(&g->head_token);
-	tmp = g->head_token;
+	start_tokens(&g->h_token);
+	tmp = g->h_token;
 	holder = is_symbol(*input);
 	while (*input)
 	{

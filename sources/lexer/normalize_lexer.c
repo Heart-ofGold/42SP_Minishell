@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_lexer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 16:50:19 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/12 12:48:57 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	normalize(t_global *g)
 {
 	t_token	*tmp;
 
-	tmp = g->head_token;
-	g->head_token = g->head_token->next_token;
-	g->head_token->n_cmds = tmp->n_cmds;
-	g->head_token->n_tokens = tmp->n_tokens;
+	tmp = g->h_token;
+	g->h_token = g->h_token->next_token;
+	g->h_token->n_cmds = tmp->n_cmds;
+	g->h_token->n_tokens = tmp->n_tokens;
 	free(tmp);
 	if (g->exit_status != 0)
 		return (error_handler(g));
-	tmp = g->head_token;
+	tmp = g->h_token;
 	while (tmp->next_token != NULL)
 		tmp = tmp->next_token;
 	if (tmp->type == REDIRECT || tmp->type == PIPE)

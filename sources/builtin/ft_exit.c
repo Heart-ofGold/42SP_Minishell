@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 21:40:47 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 13:23:48 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,24 @@ void	ft_exit_invalid(t_token *token, char **input, int status, int errorno)
 *@param input the input sent after the prompt
 *@return none.
 */
-void	ft_exit(t_token *token, t_mini_env *mini_env)
+void	ft_exit(t_global *g)
 {
 	int	i;
 
 	i = 1;
-	token->path = ft_strdup("minishell/path");
-	ft_free_env(mini_env);
-	if (token->cmd[1] == NULL)
-		ft_clean_exit(token, EXIT_SUCCESS);
+	ft_free_env(g->mini_env);
+	if (g->h_token->cmd[1] == NULL)
+		ft_clean_exit(g->h_token, EXIT_SUCCESS);
 	else
 	{
-		while (token->cmd[i])
+		while (g->h_token->cmd[i])
 		{
-			if (ft_isdigit_mod(token->cmd[i]))
-				ft_clean_exit(token, ft_atoi_mod(token->cmd[1]));
-			else if (token->cmd[2])
-				ft_exit_invalid(token, token->cmd, 42, 1);
+			if (ft_isdigit_mod(g->h_token->cmd[i]))
+				ft_clean_exit(g->h_token, ft_atoi_mod(g->h_token->cmd[1]));
+			else if (g->h_token->cmd[2])
+				ft_exit_invalid(g->h_token, g->h_token->cmd, 42, 1);
 			else
-				ft_exit_invalid(token, token->cmd, 2, 0);
+				ft_exit_invalid(g->h_token, g->h_token->cmd, 2, 0);
 			i++;
 		}
 	}

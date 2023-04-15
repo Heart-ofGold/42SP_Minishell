@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:59:15 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 11:37:04 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
 //with only an relative or absolute path
-void	ft_cd(t_mini_env *env, t_token *token)
+void	ft_cd(t_global *g)
 {
-	if (token->cmd[1] == NULL)
+	if (g->h_token->cmd[1] == NULL)
 	{
-		chdir(get_env(env, "HOME"));
+		chdir(get_env(g->mini_env, "HOME"));
 		return ;
 	}
-	chdir(token->cmd[1]);
-	ft_printf("%s\n", getcwd(NULL, 0));
+	chdir(g->h_token->cmd[1]);
 }

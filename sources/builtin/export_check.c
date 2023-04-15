@@ -1,48 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_lexer.c                                      :+:      :+:    :+:   */
+/*   export_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 06:20:11 by mcarecho          #+#    #+#             */
-/*   Updated: 2023/04/02 16:38:16 by feralves         ###   ########.fr       */
+/*   Created: 2023/04/15 19:39:28 by feralves          #+#    #+#             */
+/*   Updated: 2023/04/15 20:03:12 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	is_redirect(char c)
+int	is_varname(char c)
 {
-	if (c == '<' || c == '>')
-		return (1);
-	return (0);
+	return (ft_isalnum(c) || c == '_');
 }
 
-int	is_pipe(char c)
+int	check_valid_var(char *name)
 {
-	if (c == '|')
-		return (1);
-	return (0);
+	if (!ft_isalpha(*name))
+		return (FALSE);
+	while (*name)
+	{
+		if (!is_varname(*name))
+			return (FALSE);
+		name++;
+	}
+	return (TRUE);
 }
 
-int	is_quote(char c)
+char	**ft_var_export(char *cmd)
 {
-	if (c == '\'' || c == '\"')
-		return (1);
-	return (0);
-}
+	char	**command;
 
-int	is_whitespace(char c)
-{
-	if (c == ' ' || c == '\t' || c == '\n')
-		return (1);
-	return (0);
-}
-
-int	is_separator(char c)
-{
-	if (c == ';')
-		return (1);
-	return (0);
+	command = ft_split(cmd, '=');
+	if (!check_valid_var(command[0]))
+		return (NULL);
+	if (!command[1])
+		command[1] = ft_strdup("");
+	return (command);
 }
