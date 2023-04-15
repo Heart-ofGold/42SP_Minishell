@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/15 18:34:59 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:44:05 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_mini_env
 
 typedef struct s_global
 {
-	t_token			*head_token;
+	t_token			*h_token;
 	t_mini_env		*mini_env;
 	int 			exit_status;
 	int				last_status;
@@ -128,14 +128,16 @@ void	ft_change_value(t_mini_env **mini_env, char *cmd);
 
 // Builtin functions
 
-void	ft_env(t_token *token, t_mini_env *envp);
+void	ft_env(t_global *g);
 void	ft_env_from_export(t_token *token, t_mini_env *mini_env);
 void	ft_echo(t_global *g);
-void	ft_cd(t_mini_env *env, t_token *token);
+void	ft_cd(t_global *g);
 int		ft_pwd(t_global *g);
-void	ft_export(t_token *token, t_mini_env *mini_env);
+void	ft_export(t_global *g);
+int		check_valid_var(char *name);
+char	**ft_var_export(char *cmd);
 void	ft_unset(t_global *g);
-void	ft_exit(t_token *token, t_mini_env *mini_env);
+void	ft_exit(t_global *g);
 
 // Env functions
 
@@ -147,7 +149,7 @@ char		*find_path(t_mini_env *envp);
 // Executor
 
 char	*get_path(char *paths, char *parser);
-void	executor(t_global *g, t_token *token, t_mini_env *mini_env, char *paths);
+void	executor(t_global *g, char *paths);
 
 // Errors
 

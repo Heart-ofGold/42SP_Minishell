@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:23:13 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/15 18:57:00 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	exeggcute(char **cmd, char *path, t_mini_env *mini_env)
 	exit(check);
 }
 
-void	executor_path(t_token *token, t_mini_env *mini_env, char *paths)
+void	executor_path(t_global *g, char *paths)
 {
 	pid_t	pid;
 	int		status;
 
-	token->path = get_path(paths, token->cmd[0]);
-	if (!token->path)
-		ft_printf("%s: command not found\n", token->value);
+	g->h_token->path = get_path(paths, g->h_token->cmd[0]);
+	if (!g->h_token->path)
+		ft_printf("%s: command not found\n", g->h_token->value);
 	else
 	{
 		pid = fork();
@@ -40,7 +40,7 @@ void	executor_path(t_token *token, t_mini_env *mini_env, char *paths)
 		else if (pid == 0)
 		{
 			handle_signal();
-			exeggcute(token->cmd, token->path, mini_env);
+			exeggcute(g->h_token->cmd, g->h_token->path, g->mini_env);
 		}
 		else
 			wait(&status);
@@ -52,25 +52,25 @@ void	executor_path(t_token *token, t_mini_env *mini_env, char *paths)
  * @param input Command sent by the user.
  * @return void
  */
-void	executor(t_global *g, t_token *token, t_mini_env *mini_env, char *paths)
+void	executor(t_global *g, char *paths)
 {
 	char	*input;
 
-	input = token->cmd[0];
+	input = g->h_token->cmd[0];
 	if (!ft_strncmp(input, "echo", 5))
 		ft_echo(g);
 	else if (!ft_strncmp(input, "cd", 3))
-		ft_cd(mini_env, token);
+		ft_cd(g);
 	else if (!ft_strncmp(input, "pwd", 4))
 		ft_pwd(g);
 	else if (!ft_strncmp(input, "export", 7))
-		ft_export(token, mini_env);
+		ft_export(g);
 	else if (!ft_strncmp(input, "unset", 6))
 		ft_unset(g);
 	else if (!ft_strncmp(input, "env", 4))
-		ft_env(token, mini_env);
+		ft_env(g);
 	else if (!ft_strncmp(input, "exit", 5))
-		ft_exit(token, mini_env);
+		ft_exit(g);
 	else
-		executor_path(token, mini_env, paths);
+		executor_path(g, paths);
 }

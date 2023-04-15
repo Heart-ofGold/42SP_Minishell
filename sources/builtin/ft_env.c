@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 17:37:53 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 22:29:27 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,13 @@ void	ft_env_from_export(t_token *token, t_mini_env *mini_env)
 	}
 }
 
-void	ft_env(t_token *token, t_mini_env *mini_env)
+void	ft_env(t_global *g)
 {
 	t_mini_env	*aux;
 
-	aux = mini_env;
-	token->path = ft_strdup("minishell/path");
-	if (token->cmd[1])
-		return (ft_env_error(token));
+	aux = g->mini_env;
+	if (g->h_token->cmd[1])
+		return (ft_env_error(g->h_token));
 	else
 	{
 		while (aux->next)

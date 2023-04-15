@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pearl_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcarecho <mcarecho@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 22:06:17 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/13 11:36:40 by mcarecho         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:38:45 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	error_handler(t_global *g)
 	t_token	*tmp;
 	char	*error;
 
-	tmp = g->head_token;
+	tmp = g->h_token;
 	while (tmp)
 	{
 		error = tmp->value;
@@ -99,5 +99,5 @@ void	error_handler(t_global *g)
 	}
 	ft_printf("minishell: syntax error near unexpected token `%s'\n", error);
 	free(error);
-	g->head_token = NULL;
+	g->h_token = NULL;
 }

@@ -6,29 +6,11 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 19:00:42 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 22:50:40 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:40:52 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	is_varname(char c)
-{
-	return (ft_isalnum(c) || c == '_');
-}
-
-int	check_valid_var(char *name)
-{
-	if (!ft_isalpha(*name))
-		return (FALSE);
-	while (*name)
-	{
-		if (!is_varname(*name))
-			return (FALSE);
-		name++;
-	}
-	return (TRUE);
-}
 
 void	append_env(t_mini_env **mini_env, char *name, char *value)
 {
@@ -49,22 +31,19 @@ void	ft_change_value(t_mini_env **mini_env, char *cmd)
 }
 
 //with no options
-void	ft_export(t_token *token, t_mini_env *mini_env)
+void	ft_export(t_global *g)
 {
 	char		**command;
 	t_mini_env	*aux;
 	int			i;
 
 	i = 0;
-	token->path = ft_strdup("minishell/path");
-	if (!token->cmd[1])
-		return (ft_env_from_export(token, mini_env));
-	aux = mini_env;
-	while (token->cmd[++i])
+	if (!g->h_token->cmd[1])
+		return (ft_env_from_export(g->h_token, g->mini_env));
+	aux = g->mini_env;
+	while (g->h_token->cmd[++i])
 	{
-		command = ft_split(token->cmd[i], '=');
-		if (!command[1] || !check_valid_var(command[0]))
-			return ;
+		command = ft_var_export(g->h_token->cmd[i]);
 		while (aux->next->next)
 		{
 			if (!ft_strncmp(command[0], aux->name, ft_strlen(command[0])))
