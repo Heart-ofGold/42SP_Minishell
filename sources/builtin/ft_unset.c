@@ -6,15 +6,38 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 18:59:39 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/06 22:26:31 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/14 22:47:43 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-//with no options
-void	ft_unset(t_token *token)
+void	ft_change_env(t_mini_env **mini_env)
 {
-	token->path = ft_strdup("minishell/path");
-	ft_printf("Unset command\n");
+	t_mini_env	*aux;
+
+	aux = (*mini_env)->next;
+	(*mini_env)->next = aux->next;
+	free(aux->name);
+	free(aux->value);
+	free(aux);
+}
+
+//with no options
+void	ft_unset(t_global *g)
+{
+	t_mini_env	*aux;
+	char		*command;
+
+	aux = g->mini_env;
+	g->head_token->path = ft_strdup("minishell/path");
+	if (!g->head_token->cmd[1])
+		return ;
+	command = g->head_token->cmd[1];
+	while (aux->next)
+	{
+		if (!ft_strncmp(command, aux->next->name, ft_strlen(command)))
+			return (ft_change_env(&aux));
+		aux = aux->next;
+	}
 }

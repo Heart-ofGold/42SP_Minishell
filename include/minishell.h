@@ -6,7 +6,7 @@
 /*   By: feralves <feralves@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 20:11:08 by feralves          #+#    #+#             */
-/*   Updated: 2023/04/14 21:04:07 by feralves         ###   ########.fr       */
+/*   Updated: 2023/04/14 21:58:00 by feralves         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char 	*get_env(t_mini_env *env, char *key);
 char 	*get_key(char *word, int a, t_global *g);
 char 	*sub_error_n(char *str, char *key, int a, t_global *g);
 char 	*is_key(char *key, char *str, int a, t_global *g);
+void	ft_change_value(t_mini_env **mini_env, char *cmd);
 
 // Builtin functions
 
@@ -133,7 +134,7 @@ void	ft_echo(t_token *token);
 void	ft_cd(t_mini_env *env, t_token *token);
 int		ft_pwd(t_global *g);
 void	ft_export(t_token *token, t_mini_env *mini_env);
-void	ft_unset(t_token *token);
+void	ft_unset(t_global *g);
 void	ft_exit(t_token *token, t_mini_env *mini_env);
 
 // Env functions
